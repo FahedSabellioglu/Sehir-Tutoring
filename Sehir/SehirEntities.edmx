@@ -1,0 +1,776 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="SehirModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="C_feedBack">
+          <Key>
+            <PropertyRef Name="S_ID" />
+            <PropertyRef Name="T_ID" />
+            <PropertyRef Name="C_Name" />
+            <PropertyRef Name="C_Code" />
+            <PropertyRef Name="reviewDate" />
+          </Key>
+          <Property Name="S_ID" Type="int" Nullable="false" />
+          <Property Name="T_ID" Type="int" Nullable="false" />
+          <Property Name="C_Name" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="C_Code" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="review" Type="varchar(max)" Nullable="false" />
+          <Property Name="reviewDate" Type="date" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Course">
+          <Key>
+            <PropertyRef Name="C_Name" />
+            <PropertyRef Name="C_Code" />
+          </Key>
+          <Property Name="C_Name" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="C_Code" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="dept" Type="varchar" MaxLength="20" Nullable="false" />
+        </EntityType>
+        <EntityType Name="H_feedBack">
+          <Key>
+            <PropertyRef Name="S_ID" />
+            <PropertyRef Name="M_ID" />
+            <PropertyRef Name="H_Name" />
+            <PropertyRef Name="H_Code" />
+            <PropertyRef Name="reviewDate" />
+          </Key>
+          <Property Name="S_ID" Type="int" Nullable="false" />
+          <Property Name="M_ID" Type="int" Nullable="false" />
+          <Property Name="H_Name" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="H_Code" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="review" Type="varchar(max)" Nullable="false" />
+          <Property Name="reviewDate" Type="date" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Homework">
+          <Key>
+            <PropertyRef Name="H_Name" />
+            <PropertyRef Name="H_Code" />
+          </Key>
+          <Property Name="H_Name" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="H_Code" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="dept" Type="varchar" MaxLength="20" Nullable="false" />
+        </EntityType>
+        <EntityType Name="HomworkMaker">
+          <Key>
+            <PropertyRef Name="ID" />
+            <PropertyRef Name="H_Name" />
+            <PropertyRef Name="H_Code" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="H_Name" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="H_Code" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="descript" Type="varchar(max)" Nullable="false" />
+          <Property Name="Price" Type="int" />
+          <Property Name="transcript" Type="varbinary(max)" />
+          <Property Name="img" Type="varbinary(max)" />
+          <Property Name="approv" Type="bit" />
+        </EntityType>
+        <EntityType Name="Lecturer">
+          <Key>
+            <PropertyRef Name="ID" />
+            <PropertyRef Name="C_Name" />
+            <PropertyRef Name="C_Code" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="C_Name" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="C_Code" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="Transcript" Type="varbinary(max)" />
+          <Property Name="approv" Type="bit" />
+          <Property Name="descrip" Type="varchar(max)" />
+          <Property Name="img" Type="varbinary(max)" />
+          <Property Name="Price" Type="int" />
+        </EntityType>
+        <EntityType Name="takes">
+          <Key>
+            <PropertyRef Name="S_ID" />
+            <PropertyRef Name="T_ID" />
+            <PropertyRef Name="C_Name" />
+            <PropertyRef Name="C_Code" />
+            <PropertyRef Name="B_Date" />
+          </Key>
+          <Property Name="S_ID" Type="int" Nullable="false" />
+          <Property Name="T_ID" Type="int" Nullable="false" />
+          <Property Name="C_Name" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="C_Code" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="B_Date" Type="date" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="U_name" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="U_Surname" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="dept" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="enr_year" Type="int" Nullable="false" />
+          <Property Name="mail" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="pass" Type="varchar" MaxLength="255" Nullable="false" />
+        </EntityType>
+        <Association Name="FK__C_feedBack__6383C8BA">
+          <End Role="Lecturer" Type="Self.Lecturer" Multiplicity="1" />
+          <End Role="C_feedBack" Type="Self.C_feedBack" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Lecturer">
+              <PropertyRef Name="ID" />
+              <PropertyRef Name="C_Name" />
+              <PropertyRef Name="C_Code" />
+            </Principal>
+            <Dependent Role="C_feedBack">
+              <PropertyRef Name="T_ID" />
+              <PropertyRef Name="C_Name" />
+              <PropertyRef Name="C_Code" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__C_feedBack__S_ID__628FA481">
+          <End Role="Users" Type="Self.Users" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="C_feedBack" Type="Self.C_feedBack" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="C_feedBack">
+              <PropertyRef Name="S_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__H_feedBack__5EBF139D">
+          <End Role="HomworkMaker" Type="Self.HomworkMaker" Multiplicity="1" />
+          <End Role="H_feedBack" Type="Self.H_feedBack" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="HomworkMaker">
+              <PropertyRef Name="ID" />
+              <PropertyRef Name="H_Name" />
+              <PropertyRef Name="H_Code" />
+            </Principal>
+            <Dependent Role="H_feedBack">
+              <PropertyRef Name="M_ID" />
+              <PropertyRef Name="H_Name" />
+              <PropertyRef Name="H_Code" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__H_feedBack__S_ID__5FB337D6">
+          <End Role="Users" Type="Self.Users" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="H_feedBack" Type="Self.H_feedBack" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="H_feedBack">
+              <PropertyRef Name="S_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Lecturer__49C3F6B7">
+          <End Role="Course" Type="Self.Course" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Lecturer" Type="Self.Lecturer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Course">
+              <PropertyRef Name="C_Name" />
+              <PropertyRef Name="C_Code" />
+            </Principal>
+            <Dependent Role="Lecturer">
+              <PropertyRef Name="C_Name" />
+              <PropertyRef Name="C_Code" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Lecturer__ID__48CFD27E">
+          <End Role="Users" Type="Self.Users" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Lecturer" Type="Self.Lecturer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Lecturer">
+              <PropertyRef Name="ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__takes__5165187F">
+          <End Role="Lecturer" Type="Self.Lecturer" Multiplicity="1" />
+          <End Role="takes" Type="Self.takes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Lecturer">
+              <PropertyRef Name="ID" />
+              <PropertyRef Name="C_Name" />
+              <PropertyRef Name="C_Code" />
+            </Principal>
+            <Dependent Role="takes">
+              <PropertyRef Name="T_ID" />
+              <PropertyRef Name="C_Name" />
+              <PropertyRef Name="C_Code" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__takes__S_ID__5070F446">
+          <End Role="Users" Type="Self.Users" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="takes" Type="Self.takes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="takes">
+              <PropertyRef Name="S_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="CoursesList" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+          <Parameter Name="belongs" Type="bit" Mode="In" />
+        </Function>
+        <Function Name="HomeworkList" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+          <Parameter Name="belongs" Type="bit" Mode="In" />
+        </Function>
+        <Function Name="UserCourseInfo" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+          <Parameter Name="C_Code" Type="varchar" Mode="In" />
+          <Parameter Name="C_Name" Type="varchar" Mode="In" />
+        </Function>
+        <EntityContainer Name="SehirModelStoreContainer">
+          <EntitySet Name="C_feedBack" EntityType="Self.C_feedBack" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Course" EntityType="Self.Course" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="H_feedBack" EntityType="Self.H_feedBack" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Homework" EntityType="Self.Homework" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="HomworkMaker" EntityType="Self.HomworkMaker" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Lecturer" EntityType="Self.Lecturer" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="takes" EntityType="Self.takes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__C_feedBack__6383C8BA" Association="Self.FK__C_feedBack__6383C8BA">
+            <End Role="Lecturer" EntitySet="Lecturer" />
+            <End Role="C_feedBack" EntitySet="C_feedBack" />
+          </AssociationSet>
+          <AssociationSet Name="FK__C_feedBack__S_ID__628FA481" Association="Self.FK__C_feedBack__S_ID__628FA481">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="C_feedBack" EntitySet="C_feedBack" />
+          </AssociationSet>
+          <AssociationSet Name="FK__H_feedBack__5EBF139D" Association="Self.FK__H_feedBack__5EBF139D">
+            <End Role="HomworkMaker" EntitySet="HomworkMaker" />
+            <End Role="H_feedBack" EntitySet="H_feedBack" />
+          </AssociationSet>
+          <AssociationSet Name="FK__H_feedBack__S_ID__5FB337D6" Association="Self.FK__H_feedBack__S_ID__5FB337D6">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="H_feedBack" EntitySet="H_feedBack" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Lecturer__49C3F6B7" Association="Self.FK__Lecturer__49C3F6B7">
+            <End Role="Course" EntitySet="Course" />
+            <End Role="Lecturer" EntitySet="Lecturer" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Lecturer__ID__48CFD27E" Association="Self.FK__Lecturer__ID__48CFD27E">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Lecturer" EntitySet="Lecturer" />
+          </AssociationSet>
+          <AssociationSet Name="FK__takes__5165187F" Association="Self.FK__takes__5165187F">
+            <End Role="Lecturer" EntitySet="Lecturer" />
+            <End Role="takes" EntitySet="takes" />
+          </AssociationSet>
+          <AssociationSet Name="FK__takes__S_ID__5070F446" Association="Self.FK__takes__S_ID__5070F446">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="takes" EntitySet="takes" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="SehirModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="C_feedBack">
+          <Key>
+            <PropertyRef Name="S_ID" />
+            <PropertyRef Name="T_ID" />
+            <PropertyRef Name="C_Name" />
+            <PropertyRef Name="C_Code" />
+            <PropertyRef Name="reviewDate" />
+          </Key>
+          <Property Name="S_ID" Type="Int32" Nullable="false" />
+          <Property Name="T_ID" Type="Int32" Nullable="false" />
+          <Property Name="C_Name" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="C_Code" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="review" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="reviewDate" Type="DateTime" Nullable="false" Precision="0" />
+          <NavigationProperty Name="Lecturer" Relationship="Self.FK__C_feedBack__6383C8BA" FromRole="C_feedBack" ToRole="Lecturer" />
+          <NavigationProperty Name="User" Relationship="Self.FK__C_feedBack__S_ID__628FA481" FromRole="C_feedBack" ToRole="Users" />
+        </EntityType>
+        <EntityType Name="Course">
+          <Key>
+            <PropertyRef Name="C_Name" />
+            <PropertyRef Name="C_Code" />
+          </Key>
+          <Property Name="C_Name" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="C_Code" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="dept" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Lecturers" Relationship="Self.FK__Lecturer__49C3F6B7" FromRole="Course" ToRole="Lecturer" />
+        </EntityType>
+        <EntityType Name="H_feedBack">
+          <Key>
+            <PropertyRef Name="S_ID" />
+            <PropertyRef Name="M_ID" />
+            <PropertyRef Name="H_Name" />
+            <PropertyRef Name="H_Code" />
+            <PropertyRef Name="reviewDate" />
+          </Key>
+          <Property Name="S_ID" Type="Int32" Nullable="false" />
+          <Property Name="M_ID" Type="Int32" Nullable="false" />
+          <Property Name="H_Name" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="H_Code" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="review" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="reviewDate" Type="DateTime" Nullable="false" Precision="0" />
+          <NavigationProperty Name="HomworkMaker" Relationship="Self.FK__H_feedBack__5EBF139D" FromRole="H_feedBack" ToRole="HomworkMaker" />
+          <NavigationProperty Name="User" Relationship="Self.FK__H_feedBack__S_ID__5FB337D6" FromRole="H_feedBack" ToRole="Users" />
+        </EntityType>
+        <EntityType Name="Homework">
+          <Key>
+            <PropertyRef Name="H_Name" />
+            <PropertyRef Name="H_Code" />
+          </Key>
+          <Property Name="H_Name" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="H_Code" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="dept" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+        </EntityType>
+        <EntityType Name="HomworkMaker">
+          <Key>
+            <PropertyRef Name="ID" />
+            <PropertyRef Name="H_Name" />
+            <PropertyRef Name="H_Code" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="H_Name" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="H_Code" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="descript" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Price" Type="Int32" />
+          <Property Name="transcript" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="img" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <NavigationProperty Name="H_feedBack" Relationship="Self.FK__H_feedBack__5EBF139D" FromRole="HomworkMaker" ToRole="H_feedBack" />
+          <Property Name="approv" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="Lecturer">
+          <Key>
+            <PropertyRef Name="ID" />
+            <PropertyRef Name="C_Name" />
+            <PropertyRef Name="C_Code" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="C_Name" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="C_Code" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Transcript" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="approv" Type="Boolean" />
+          <Property Name="descrip" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="img" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="Price" Type="Int32" />
+          <NavigationProperty Name="C_feedBack" Relationship="Self.FK__C_feedBack__6383C8BA" FromRole="Lecturer" ToRole="C_feedBack" />
+          <NavigationProperty Name="Course" Relationship="Self.FK__Lecturer__49C3F6B7" FromRole="Lecturer" ToRole="Course" />
+          <NavigationProperty Name="User" Relationship="Self.FK__Lecturer__ID__48CFD27E" FromRole="Lecturer" ToRole="Users" />
+          <NavigationProperty Name="takes" Relationship="Self.FK__takes__5165187F" FromRole="Lecturer" ToRole="takes" />
+        </EntityType>
+        <EntityType Name="take">
+          <Key>
+            <PropertyRef Name="S_ID" />
+            <PropertyRef Name="T_ID" />
+            <PropertyRef Name="C_Name" />
+            <PropertyRef Name="C_Code" />
+            <PropertyRef Name="B_Date" />
+          </Key>
+          <Property Name="S_ID" Type="Int32" Nullable="false" />
+          <Property Name="T_ID" Type="Int32" Nullable="false" />
+          <Property Name="C_Name" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="C_Code" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="B_Date" Type="DateTime" Nullable="false" Precision="0" />
+          <NavigationProperty Name="Lecturer" Relationship="Self.FK__takes__5165187F" FromRole="takes" ToRole="Lecturer" />
+          <NavigationProperty Name="User" Relationship="Self.FK__takes__S_ID__5070F446" FromRole="takes" ToRole="Users" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="U_name" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="U_Surname" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="dept" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="enr_year" Type="Int32" Nullable="false" />
+          <Property Name="mail" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="pass" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="C_feedBack" Relationship="Self.FK__C_feedBack__S_ID__628FA481" FromRole="Users" ToRole="C_feedBack" />
+          <NavigationProperty Name="H_feedBack" Relationship="Self.FK__H_feedBack__S_ID__5FB337D6" FromRole="Users" ToRole="H_feedBack" />
+          <NavigationProperty Name="Lecturers" Relationship="Self.FK__Lecturer__ID__48CFD27E" FromRole="Users" ToRole="Lecturer" />
+          <NavigationProperty Name="takes" Relationship="Self.FK__takes__S_ID__5070F446" FromRole="Users" ToRole="takes" />
+        </EntityType>
+        <Association Name="FK__C_feedBack__6383C8BA">
+          <End Role="Lecturer" Type="Self.Lecturer" Multiplicity="1" />
+          <End Role="C_feedBack" Type="Self.C_feedBack" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Lecturer">
+              <PropertyRef Name="ID" />
+              <PropertyRef Name="C_Name" />
+              <PropertyRef Name="C_Code" />
+            </Principal>
+            <Dependent Role="C_feedBack">
+              <PropertyRef Name="T_ID" />
+              <PropertyRef Name="C_Name" />
+              <PropertyRef Name="C_Code" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__C_feedBack__S_ID__628FA481">
+          <End Role="Users" Type="Self.User" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="C_feedBack" Type="Self.C_feedBack" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="C_feedBack">
+              <PropertyRef Name="S_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Lecturer__49C3F6B7">
+          <End Role="Course" Type="Self.Course" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Lecturer" Type="Self.Lecturer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Course">
+              <PropertyRef Name="C_Name" />
+              <PropertyRef Name="C_Code" />
+            </Principal>
+            <Dependent Role="Lecturer">
+              <PropertyRef Name="C_Name" />
+              <PropertyRef Name="C_Code" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__H_feedBack__5EBF139D">
+          <End Role="HomworkMaker" Type="Self.HomworkMaker" Multiplicity="1" />
+          <End Role="H_feedBack" Type="Self.H_feedBack" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="HomworkMaker">
+              <PropertyRef Name="ID" />
+              <PropertyRef Name="H_Name" />
+              <PropertyRef Name="H_Code" />
+            </Principal>
+            <Dependent Role="H_feedBack">
+              <PropertyRef Name="M_ID" />
+              <PropertyRef Name="H_Name" />
+              <PropertyRef Name="H_Code" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__H_feedBack__S_ID__5FB337D6">
+          <End Role="Users" Type="Self.User" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="H_feedBack" Type="Self.H_feedBack" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="H_feedBack">
+              <PropertyRef Name="S_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Lecturer__ID__48CFD27E">
+          <End Role="Users" Type="Self.User" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Lecturer" Type="Self.Lecturer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Lecturer">
+              <PropertyRef Name="ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__takes__5165187F">
+          <End Role="Lecturer" Type="Self.Lecturer" Multiplicity="1" />
+          <End Role="takes" Type="Self.take" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Lecturer">
+              <PropertyRef Name="ID" />
+              <PropertyRef Name="C_Name" />
+              <PropertyRef Name="C_Code" />
+            </Principal>
+            <Dependent Role="takes">
+              <PropertyRef Name="T_ID" />
+              <PropertyRef Name="C_Name" />
+              <PropertyRef Name="C_Code" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__takes__S_ID__5070F446">
+          <End Role="Users" Type="Self.User" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="takes" Type="Self.take" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="takes">
+              <PropertyRef Name="S_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="SehirEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="C_feedBack" EntityType="Self.C_feedBack" />
+          <EntitySet Name="Courses" EntityType="Self.Course" />
+          <EntitySet Name="H_feedBack" EntityType="Self.H_feedBack" />
+          <EntitySet Name="Homework" EntityType="Self.Homework" />
+          <EntitySet Name="HomworkMakers" EntityType="Self.HomworkMaker" />
+          <EntitySet Name="Lecturers" EntityType="Self.Lecturer" />
+          <EntitySet Name="takes" EntityType="Self.take" />
+          <EntitySet Name="Users" EntityType="Self.User" />
+          <AssociationSet Name="FK__C_feedBack__6383C8BA" Association="Self.FK__C_feedBack__6383C8BA">
+            <End Role="Lecturer" EntitySet="Lecturers" />
+            <End Role="C_feedBack" EntitySet="C_feedBack" />
+          </AssociationSet>
+          <AssociationSet Name="FK__C_feedBack__S_ID__628FA481" Association="Self.FK__C_feedBack__S_ID__628FA481">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="C_feedBack" EntitySet="C_feedBack" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Lecturer__49C3F6B7" Association="Self.FK__Lecturer__49C3F6B7">
+            <End Role="Course" EntitySet="Courses" />
+            <End Role="Lecturer" EntitySet="Lecturers" />
+          </AssociationSet>
+          <AssociationSet Name="FK__H_feedBack__5EBF139D" Association="Self.FK__H_feedBack__5EBF139D">
+            <End Role="HomworkMaker" EntitySet="HomworkMakers" />
+            <End Role="H_feedBack" EntitySet="H_feedBack" />
+          </AssociationSet>
+          <AssociationSet Name="FK__H_feedBack__S_ID__5FB337D6" Association="Self.FK__H_feedBack__S_ID__5FB337D6">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="H_feedBack" EntitySet="H_feedBack" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Lecturer__ID__48CFD27E" Association="Self.FK__Lecturer__ID__48CFD27E">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Lecturer" EntitySet="Lecturers" />
+          </AssociationSet>
+          <AssociationSet Name="FK__takes__5165187F" Association="Self.FK__takes__5165187F">
+            <End Role="Lecturer" EntitySet="Lecturers" />
+            <End Role="takes" EntitySet="takes" />
+          </AssociationSet>
+          <AssociationSet Name="FK__takes__S_ID__5070F446" Association="Self.FK__takes__S_ID__5070F446">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="takes" EntitySet="takes" />
+          </AssociationSet>
+          <FunctionImport Name="CoursesList" ReturnType="Collection(SehirModel.CoursesList_Result)">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+            <Parameter Name="belongs" Mode="In" Type="Boolean" />
+          </FunctionImport>
+          <FunctionImport Name="HomeworkList" EntitySet="HomworkMakers" ReturnType="Collection(SehirModel.HomworkMaker)">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+            <Parameter Name="belongs" Mode="In" Type="Boolean" />
+          </FunctionImport>
+          <FunctionImport Name="UserCourseInfo" ReturnType="Collection(SehirModel.UserCourseInfo_Result)">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+            <Parameter Name="C_Code" Mode="In" Type="String" />
+            <Parameter Name="C_Name" Mode="In" Type="String" />
+          </FunctionImport>
+        </EntityContainer>
+        <ComplexType Name="CoursesList_Result">
+          <Property Type="Int32" Name="ID" Nullable="false" />
+          <Property Type="Int32" Name="Price" Nullable="true" />
+          <Property Type="Binary" Name="img" Nullable="true" />
+          <Property Type="String" Name="C_Name" Nullable="false" MaxLength="20" />
+          <Property Type="String" Name="C_Code" Nullable="false" MaxLength="20" />
+          <Property Type="Binary" Name="Transcript" Nullable="true" />
+          <Property Type="Boolean" Name="approv" Nullable="true" />
+          <Property Type="String" Name="descrip" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="HomworkMaker1">
+          <Property Type="Int32" Name="ID" Nullable="false" />
+          <Property Type="String" Name="H_Name" Nullable="false" MaxLength="20" />
+          <Property Type="String" Name="H_Code" Nullable="false" MaxLength="20" />
+          <Property Type="String" Name="descript" Nullable="false" />
+          <Property Type="Int32" Name="Price" Nullable="true" />
+          <Property Type="Binary" Name="transcript" Nullable="true" />
+          <Property Type="Binary" Name="img" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="HomeworkList_Result">
+          <Property Type="Int32" Name="ID" Nullable="false" />
+          <Property Type="String" Name="H_Name" Nullable="false" MaxLength="20" />
+          <Property Type="String" Name="H_Code" Nullable="false" MaxLength="20" />
+          <Property Type="String" Name="descript" Nullable="false" />
+          <Property Type="Int32" Name="Price" Nullable="true" />
+          <Property Type="Binary" Name="transcript" Nullable="true" />
+          <Property Type="Binary" Name="img" Nullable="true" />
+          <Property Type="Boolean" Name="approv" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="UserCourseInfo_Result">
+          <Property Type="Int32" Name="ID" Nullable="false" />
+          <Property Type="String" Name="C_Name" Nullable="false" MaxLength="20" />
+          <Property Type="String" Name="C_Code" Nullable="false" MaxLength="20" />
+          <Property Type="String" Name="descrip" Nullable="true" />
+          <Property Type="Binary" Name="img" Nullable="true" />
+          <Property Type="Int32" Name="Price" Nullable="true" />
+          <Property Type="String" Name="dept" Nullable="true" MaxLength="20" />
+        </ComplexType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="SehirModelStoreContainer" CdmEntityContainer="SehirEntities">
+          <EntitySetMapping Name="C_feedBack">
+            <EntityTypeMapping TypeName="SehirModel.C_feedBack">
+              <MappingFragment StoreEntitySet="C_feedBack">
+                <ScalarProperty Name="S_ID" ColumnName="S_ID" />
+                <ScalarProperty Name="T_ID" ColumnName="T_ID" />
+                <ScalarProperty Name="C_Name" ColumnName="C_Name" />
+                <ScalarProperty Name="C_Code" ColumnName="C_Code" />
+                <ScalarProperty Name="review" ColumnName="review" />
+                <ScalarProperty Name="reviewDate" ColumnName="reviewDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Courses">
+            <EntityTypeMapping TypeName="SehirModel.Course">
+              <MappingFragment StoreEntitySet="Course">
+                <ScalarProperty Name="C_Name" ColumnName="C_Name" />
+                <ScalarProperty Name="C_Code" ColumnName="C_Code" />
+                <ScalarProperty Name="dept" ColumnName="dept" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="H_feedBack">
+            <EntityTypeMapping TypeName="SehirModel.H_feedBack">
+              <MappingFragment StoreEntitySet="H_feedBack">
+                <ScalarProperty Name="S_ID" ColumnName="S_ID" />
+                <ScalarProperty Name="M_ID" ColumnName="M_ID" />
+                <ScalarProperty Name="H_Name" ColumnName="H_Name" />
+                <ScalarProperty Name="H_Code" ColumnName="H_Code" />
+                <ScalarProperty Name="review" ColumnName="review" />
+                <ScalarProperty Name="reviewDate" ColumnName="reviewDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Homework">
+            <EntityTypeMapping TypeName="SehirModel.Homework">
+              <MappingFragment StoreEntitySet="Homework">
+                <ScalarProperty Name="H_Name" ColumnName="H_Name" />
+                <ScalarProperty Name="H_Code" ColumnName="H_Code" />
+                <ScalarProperty Name="dept" ColumnName="dept" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="HomworkMakers">
+            <EntityTypeMapping TypeName="SehirModel.HomworkMaker">
+              <MappingFragment StoreEntitySet="HomworkMaker">
+                <ScalarProperty Name="approv" ColumnName="approv" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="H_Name" ColumnName="H_Name" />
+                <ScalarProperty Name="H_Code" ColumnName="H_Code" />
+                <ScalarProperty Name="descript" ColumnName="descript" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="transcript" ColumnName="transcript" />
+                <ScalarProperty Name="img" ColumnName="img" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Lecturers">
+            <EntityTypeMapping TypeName="SehirModel.Lecturer">
+              <MappingFragment StoreEntitySet="Lecturer">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="C_Name" ColumnName="C_Name" />
+                <ScalarProperty Name="C_Code" ColumnName="C_Code" />
+                <ScalarProperty Name="Transcript" ColumnName="Transcript" />
+                <ScalarProperty Name="approv" ColumnName="approv" />
+                <ScalarProperty Name="descrip" ColumnName="descrip" />
+                <ScalarProperty Name="img" ColumnName="img" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="takes">
+            <EntityTypeMapping TypeName="SehirModel.take">
+              <MappingFragment StoreEntitySet="takes">
+                <ScalarProperty Name="S_ID" ColumnName="S_ID" />
+                <ScalarProperty Name="T_ID" ColumnName="T_ID" />
+                <ScalarProperty Name="C_Name" ColumnName="C_Name" />
+                <ScalarProperty Name="C_Code" ColumnName="C_Code" />
+                <ScalarProperty Name="B_Date" ColumnName="B_Date" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="SehirModel.User">
+              <MappingFragment StoreEntitySet="Users">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="U_name" ColumnName="U_name" />
+                <ScalarProperty Name="U_Surname" ColumnName="U_Surname" />
+                <ScalarProperty Name="dept" ColumnName="dept" />
+                <ScalarProperty Name="enr_year" ColumnName="enr_year" />
+                <ScalarProperty Name="mail" ColumnName="mail" />
+                <ScalarProperty Name="pass" ColumnName="pass" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="CoursesList" FunctionName="SehirModel.Store.CoursesList" >
+          <ResultMapping>
+              <ComplexTypeMapping TypeName="SehirModel.CoursesList_Result">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="img" ColumnName="img" />
+                <ScalarProperty Name="C_Name" ColumnName="C_Name" />
+                <ScalarProperty Name="C_Code" ColumnName="C_Code" />
+                <ScalarProperty Name="Transcript" ColumnName="Transcript" />
+                <ScalarProperty Name="approv" ColumnName="approv" />
+                <ScalarProperty Name="descrip" ColumnName="descrip" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="HomeworkList" FunctionName="SehirModel.Store.HomeworkList">
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="UserCourseInfo" FunctionName="SehirModel.Store.UserCourseInfo">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="SehirModel.UserCourseInfo_Result">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="C_Name" ColumnName="C_Name" />
+                <ScalarProperty Name="C_Code" ColumnName="C_Code" />
+                <ScalarProperty Name="descrip" ColumnName="descrip" />
+                <ScalarProperty Name="img" ColumnName="img" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="dept" ColumnName="dept" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

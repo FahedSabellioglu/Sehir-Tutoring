@@ -4,13 +4,19 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
+
 namespace Sehir.Controllers
 {
+    [Authorize]
     public class HomeController : Controller
     {
         // GET: Home
+        
         public ActionResult Main()
         {
+
+
+         
             return View();
         }
     }

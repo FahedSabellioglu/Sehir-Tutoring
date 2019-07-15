@@ -3,23 +3,32 @@
     ViewBag.Title = ViewBag.c_name;
 }
 
+@model CoursesList_Result
+
+@{ 
+    User usrInfo = (User)ViewData["UserInfo"];
+}
+
 
 @section head{
 
     <link href="/Content/eiser/css/load-more-button.css" rel="stylesheet">
 }
 
+
+
+
 <section class="banner_area">
     <div class="banner_inner d-flex align-items-center">
         <div class="container">
             <div class="banner_content d-md-flex justify-content-between align-items-center">
                 <div class="mb-3 mb-md-0">
-                    <h2>@ViewBag.c_name Course Details</h2>
+                    <h2>@Model.C_Name Course Details</h2>
                     <p>The Course Details</p>
                 </div>
                 <div class="page_link">
                     <a href="/Home/Main">Home</a>
-                    <a href="/Courses/Details/@ViewBag.page_id">Product Details</a>
+                    <a href="">Product Details</a>
                 </div>
             </div>
         </div>
@@ -75,23 +84,20 @@
             </div>
             <div class="col-lg-5 offset-lg-1">
                 <div class="s_product_text">
-                    <h3>Faded SkyBlu Denim Jeans</h3>
-                    <h2>$149.99</h2>
+                    <h3>@Model.C_Name</h3>
+                    <h2>@Model.Price</h2>
                     <ul class="list">
                         <li>
                             <a class="active" href="#">
-                                <span>Category</span> : Household
+                                <span>Course Code</span> : @Model.C_Code
                             </a>
                         </li>
                         <li>
-                            <a href="#"> <span>Availibility</span> : In Stock</a>
+                            <a href="#"> <span>Instructor</span>@usrInfo.U_name  @usrInfo.U_Surname </a>
                         </li>
                     </ul>
                     <p>
-                        Mill Oil is an innovative oil filled radiator with the most
-                        modern technology. If you are looking for something that can
-                        make your interior look awesome, and at the same time give you
-                        the pleasant warm feeling during the winter.
+                       @Model.descrip
                     </p>
 
                     <div class="row">

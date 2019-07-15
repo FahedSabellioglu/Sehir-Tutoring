@@ -1,19 +1,16 @@
 ﻿
 @{
-    ViewBag.Title = "_ShowLayout";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "MyCourses";
 }
+
 
 @using PagedList;
 @using PagedList.Mvc;
 
-
 @model IPagedList<CoursesList_Result>
 
 
-@RenderSection("head", false)
 
-@{RenderBody(); }
 <section class="banner_area">
     <div class="banner_inner d-flex align-items-center">
         <div class="container">
@@ -24,7 +21,7 @@
                 </div>
                 <div class="page_link">
                     <a href="/Home/Main">Home</a>
-                    <a href="/@ViewBag.C_name/Index">@ViewBag.name</a>
+                    <a href="/@ViewBag.C_name/MyCourses">@ViewBag.name</a>
                 </div>
             </div>
         </div>
@@ -62,8 +59,12 @@
                                     <div class="product-img">
                                         <img class="card-img" src="~/Content/eiser/img/product/inspired-product/i2.jpg" alt="">
                                         <div class="p_icon">
-                                            <a href="@Url.Action("Details",new {usrid=K.ID, c_code=K.C_Code, c_name=K.C_Name  })">
+                                            <a href="@Url.Action("UserId",new {Email=User.Identity.Name, crid=K.C_Name  })">
                                                 <i class="ti-eye"></i>
+                                            </a>
+                                            
+                                            <a class="delete_item" data-code="@K.C_Code" data-name="@K.C_Name" data-toggle="modal" data-target="#exampleModal">
+                                                <i class="ti-trash"></i>
                                             </a>
                                         </div>
                                     </div>
@@ -72,7 +73,7 @@
                                             <h4>@K.C_Name</h4>
                                         </a>
                                         <div class="mt-3">
-                                            <span class="mr-4">$25.00</span>
+                                            <span class="mr-4">@K.Price TL</span>
                                         </div>
                                     </div>
                                 </div>
@@ -123,36 +124,14 @@
 
             <div class="col-lg-3">
                 <div class="left_sidebar_area">
-                    <aside class="left_widgets p_filter_widgets">
-                        <div class="l_w_title">
-                            <h3>Name</h3>
-                        </div>
-                        <div class="widgets_inner">
-                            <ul class="list">
-                                @foreach (string CourseName in ViewBag.CNames)
-                                {
-                                    <li>
-                                        <a href="#">@CourseName</a>
-                                    </li>
-                                }
-                            </ul>
-                        </div>
-                    </aside>
+
 
                     <aside class="left_widgets p_filter_widgets">
                         <div class="l_w_title">
-                            <h3>Depertment</h3>
+                            <h3>Add Courses</h3>
                         </div>
                         <div class="widgets_inner">
-                            <ul class="list">
-                                @foreach (string d_name in ViewBag.Dep)
-                                {
-                                    <li>
-                                        <a href="#">@d_name</a>
-                                    </li>
-
-                                }
-                            </ul>
+                            h
                         </div>
                     </aside>
                 </div>
@@ -162,56 +141,49 @@
 </section>
 
 @section scripts{
-   <script>
+    <script src="~/Content/eiser/js/jquery-3.2.1.min.js"></script>
+    <script src="~/Content/eiser/js/bootstrap.min.js"></script>
+    <script>
         $(".delete_item").click(function () {
-            var Name = $(this).data("item");
+            var Name = $(this).data("name");
+            var Code = $(this).data("code");
             $("#YES").data("name", Name);
+            $("#YES").data("code", Code);
             document.getElementById("popup").innerHTML = "Would you like to delete " + Name;
             document.getElementById("no1").innerHTML = "No";
         })
 
-       $(".Yes-button").click(function () {
-           var Name = $(this).data("name");
-           console.log("/@ViewBag.C_name/Delete")
+        $(".Yes-button").click(function () {
+            var Name = $(this).data("name");
+            var Code = $(this).data("code");
 
-           $.ajax({
-               type: "POST",
-               url: "/@ViewBag.C_name/Delete/" + Name,
-               success: function (durum) {
+            $.ajax({
+                type: "POST",
+                url: "/Courses/Delete/",
+                data: { c_name: Name, c_code: Code },
+                success: function () {
+                    $("#exampleModal").modal("hide");
+                    window.location.replace("/Courses/MyCourses");
+                },
+                error:
+                    function () {
+                        $("#exampleModal").modal("hide");
+                        document.getElementById("popup").innerHTML = "Couldn't delete the item " + Name;
+                        document.getElementById("no1").innerHTML = "Close";
+                        var clone = $("#exampleModal").clone();
+                        clone.find(".Yes-button").remove();
+                        clone.modal("show");
+                    }
+            })
+        })
 
-                   if (durum == "done") {
-                       //window.location.replace("/@ViewBag.C_Name/Index");
-                       $("#exampleModal").modal("hide");
-                      
-                   }
-                   else if (durum == "fail") {
-                       $("#exampleModal").modal("hide");
-                       document.getElementById("popup").innerHTML = "Couldn't delete the item " + Name;
-                       document.getElementById("no1").innerHTML = "Close";
 
-                       var clone = $("#exampleModal").clone();
-
-  
-                       clone.find(".Yes-button").remove();
-
-                       clone.modal("show");
-                   }
-               },
-               error: function (durum)
-               {                       $("#exampleModal").modal("hide");
-                                          $("#exampleModal").modal("show");
-                       console.log(durum);
-                   }
-               })
-           })
-   
-       
 
     </script>
 
-    }
+}
 
-@RenderSection("scripts",false)
+
 
 
 

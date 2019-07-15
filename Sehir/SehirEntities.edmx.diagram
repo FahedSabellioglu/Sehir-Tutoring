@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="d95ef1a3c9c14ba9b082e53999de3646" Name="Diagram1" ZoomLevel="83">
+        <EntityTypeShape EntityType="SehirModel.C_feedBack" Width="1.5" PointX="3" PointY="5.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="SehirModel.Course" Width="1.5" PointX="0.75" PointY="1.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="SehirModel.H_feedBack" Width="1.5" PointX="6" PointY="5.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="SehirModel.Homework" Width="1.5" PointX="7.75" PointY="0.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="SehirModel.HomworkMaker" Width="1.5" PointX="3.75" PointY="9.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="SehirModel.Lecturer" Width="1.5" PointX="3" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SehirModel.take" Width="1.5" PointX="5.25" PointY="1.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="SehirModel.User" Width="1.5" PointX="0.75" PointY="4.875" IsExpanded="true" />
+        <AssociationConnector Association="SehirModel.FK__C_feedBack__6383C8BA" ManuallyRouted="false" />
+        <AssociationConnector Association="SehirModel.FK__C_feedBack__S_ID__628FA481" ManuallyRouted="false" />
+        <AssociationConnector Association="SehirModel.FK__Lecturer__49C3F6B7" ManuallyRouted="false" />
+        <AssociationConnector Association="SehirModel.FK__H_feedBack__5EBF139D" ManuallyRouted="false" />
+        <AssociationConnector Association="SehirModel.FK__H_feedBack__S_ID__5FB337D6" ManuallyRouted="false" />
+        <AssociationConnector Association="SehirModel.FK__Lecturer__ID__48CFD27E" ManuallyRouted="false" />
+        <AssociationConnector Association="SehirModel.FK__takes__5165187F" ManuallyRouted="false" />
+        <AssociationConnector Association="SehirModel.FK__takes__S_ID__5070F446" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

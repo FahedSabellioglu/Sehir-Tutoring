@@ -5,26 +5,24 @@ using System.Web;
 using System.Web.Mvc;
 using PagedList;
 using PagedList.Mvc;
+using Microsoft.EntityFrameworkCore;
+
 
 namespace Sehir.Controllers
 {
+        
     public class CoursesController : Controller
     {
-        // GET: Courses
-        public ActionResult Index(int? page)
+        
+          // GET: Courses
+        SehirEntities cx = new SehirEntities();
+        public ActionResult Index(int? page, int? id=0)
         {
-            List<string> CoursesNames = new List<string>() { "Introduction to programming", "Network", "Computer Network" };
-            List<string> Dept_names = new List<string>() { "CS", "IEEE", "IMB" };
+            List<CoursesList_Result> courses_offered = Data(id);
+            List<string> Allcourses = courses_offered.OrderBy(x=>x.C_Name).Select(x => x.C_Name).Distinct().ToList();
+            List<string> Deps = cx.Courses.Select(x => x.dept).Distinct().ToList();
+            PagedList<CoursesList_Result> j = new PagedList<CoursesList_Result>(courses_offered, page ?? 1, 9);
 
-            List<string> hnames = new List<string>() { "Introduction to programming", "Network", "Computer Network", "Introduction to programming", "Network", "Computer Network", "Introduction to programming", "Network", "Computer Network",
-            "Introduction to programming 1", "1 Network", "2 Computer Network", "1 Introduction to programming", "2 Network", "3 Computer Network", "4 Introduction to programming", "Network", "Computer Network" };
-
-            List<string> h = new List<string>() { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19" };
-            PagedList<string> j = new PagedList<string>(h, page ?? 1, 9);
-
-            ViewBag.dept = Dept_names;
-            ViewBag.h = hnames;
-            ViewBag.object_name = CoursesNames;
 
             ViewBag.name = "Courses";
             ViewBag.desc = "Course desc";
@@ -32,48 +30,55 @@ namespace Sehir.Controllers
             ViewBag.C_name = "Courses";
 
 
+            ViewBag.CNames = Allcourses;
+            ViewBag.Dep = Deps;
 
             return View(j);
         }
-  
-        public ActionResult Details(int id)
+
+        List<CoursesList_Result> Data(int? id)
         {
-            string name;
+            List<CoursesList_Result> CoursesList;
+            User usr = cx.Users.FirstOrDefault(x => x.mail == User.Identity.Name);
             if (id == 1)
             {
-                name = "h";
-            }
-            else
-            {
-                name = "j";
-            }
-            ViewBag.page_id = id;
+                CoursesList = cx.CoursesList(usr.id, true).ToList();
                 
-            ViewBag.c_name = name;
-            return View();
-        }
-        public ActionResult Try(int? page)
-        {
-            List<string> hnames = new List<string>() { "Introduction to programming", "Network", "Computer Network", "Introduction to programming", "Network", "Computer Network", "Introduction to programming", "Network", "Computer Network" };
-
-            return View(hnames.ToPagedList(page?? 1, 2));
-        }
-        [HttpPost]
-        public string Delete(int id)
-        {
-            string n = "";
-
-            int d = id;
-            if (d == 1)
-            {
-                n = "done";
-                return n;
             }
             else
             {
-                n = "fail";
-                return n;
+                CoursesList = cx.CoursesList(usr.id, false).ToList();
             }
+            return CoursesList;
+        }
+
+        public ActionResult Details(CoursesList_Result CourseObject)
+        {
+            User usr = cx.Users.FirstOrDefault(x => x.id == CourseObject.ID);
+            ViewData["UserInfo"] = usr;
+
+            ViewBag.UserInfo = usr;
+            
+            return View(CourseObject);
+        }
+
+        public ActionResult UserId(string Email, int crid)
+        {
+            User usr = cx.Users.FirstOrDefault(x => x.mail == Email);
+            return RedirectToAction("Details", new { usrid = usr.id, crid = crid });
+        }   
+
+ 
+        [HttpPost]
+        public void Delete(int userId, string name, string code)
+        {
+            User usr = cx.Users.FirstOrDefault(x => x.mail == User.Identity.Name);
+            Lecturer lec_index = cx.Lecturers.FirstOrDefault(x => x.ID == usr.id && x.C_Name == name && x.C_Code==code);
+
+            cx.Lecturers.Remove(lec_index);
+            cx.SaveChanges();
+
+            
         }
 
     }
