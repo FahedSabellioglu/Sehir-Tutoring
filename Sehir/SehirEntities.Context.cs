@@ -91,22 +91,5 @@ namespace Sehir
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<UserCourseInfo_Result>("UserCourseInfo", idParameter, c_CodeParameter, c_NameParameter);
         }
-    
-        public virtual ObjectResult<CustomFeedback_Result> CustomFeedback(Nullable<int> t_id, string code, string name)
-        {
-            var t_idParameter = t_id.HasValue ?
-                new ObjectParameter("T_id", t_id) :
-                new ObjectParameter("T_id", typeof(int));
-    
-            var codeParameter = code != null ?
-                new ObjectParameter("Code", code) :
-                new ObjectParameter("Code", typeof(string));
-    
-            var nameParameter = name != null ?
-                new ObjectParameter("Name", name) :
-                new ObjectParameter("Name", typeof(string));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<CustomFeedback_Result>("CustomFeedback", t_idParameter, codeParameter, nameParameter);
-        }
     }
 }

@@ -30,7 +30,6 @@ namespace Sehir
         public int enr_year { get; set; }
         public string mail { get; set; }
         public string pass { get; set; }
-        public byte[] img { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<C_feedBack> C_feedBack { get; set; }

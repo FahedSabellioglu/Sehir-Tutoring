@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="d95ef1a3c9c14ba9b082e53999de3646" Name="Diagram1" ZoomLevel="23">
+      <Diagram DiagramId="d95ef1a3c9c14ba9b082e53999de3646" Name="Diagram1" ZoomLevel="83">
         <EntityTypeShape EntityType="SehirModel.C_feedBack" Width="1.5" PointX="3" PointY="5.125" IsExpanded="true" />
         <EntityTypeShape EntityType="SehirModel.Course" Width="1.5" PointX="0.75" PointY="1.5" IsExpanded="true" />
         <EntityTypeShape EntityType="SehirModel.H_feedBack" Width="1.5" PointX="6" PointY="5.125" IsExpanded="true" />
