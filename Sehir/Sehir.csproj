@@ -514,6 +514,9 @@
     <Compile Include="CoursesList_Result.cs">
       <DependentUpon>SehirEntities.tt</DependentUpon>
     </Compile>
+    <Compile Include="CustomFeedback_Result.cs">
+      <DependentUpon>SehirEntities.tt</DependentUpon>
+    </Compile>
     <Compile Include="C_feedBack.cs">
       <DependentUpon>SehirEntities.tt</DependentUpon>
     </Compile>

@@ -9,6 +9,7 @@ using PagedList.Mvc;
 
 namespace Sehir.Controllers
 {
+    [Authorize]
     public class HomeworkController : Controller
     {
         // GET: Homework

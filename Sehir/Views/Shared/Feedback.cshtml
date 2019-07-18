@@ -1,0 +1,95 @@
+﻿
+
+@model List<CustomFeedback_Result>
+
+
+<section class="product_description_area">
+    <div class="container">
+        <ul class="nav nav-tabs" id="myTab" role="tablist">
+            <li class="nav-item">
+                @{
+                    string value;
+                    if (Model.Count() != 0)
+                    {
+                        value = Model.Count().ToString();
+                    }
+                    else
+                    {
+                        value = "No";
+                    }
+                }
+                <a class="nav-link active float-right" id="review-tab" data-toggle="tab" href="#review" role="tab" aria-controls="review" aria-selected="false">@value Comments</a>
+            </li>
+        </ul>
+        <div class="tab-content" id="myTabContent">
+            <div class="tab-pane fade show active" id="review" role="tabpanel" aria-labelledby="review-tab">
+                <div class="row">
+                    <div class="col-lg-12 posts-list">
+
+
+                        <div class="comments-area">
+                            @foreach (CustomFeedback_Result item in Model)
+                            {
+                                var ImgB64 = Convert.ToBase64String(item.img);
+                                var imgsrc = String.Format("data:image/jpg;base64,{0}", ImgB64);
+                                <div class="comment-list blogBox moreBox" style="display:none;">
+
+                                    <div class="single-comment justify-content-between d-flex">
+                                        <div class="user justify-content-between d-flex">
+                                            <div class="thumb">
+                                                <img src="@imgsrc" alt="">
+                                            </div>
+                                            <div class="desc">
+                                                <p class="comment">
+                                                    @item.review
+                                                </p>
+
+                                                <div class="d-flex justify-content-between">
+                                                    <div class="d-flex align-items-center">
+                                                        <h5>
+                                                            <a href="#">@item.U_Name @item.U_Surname</a>
+                                                        </h5>
+                                                        <p class="date">@item.reviewDate </p>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                            <div id="loadMore" style="">
+                                <a href="#">Load More</a>
+                            </div>
+                        </div>
+                        <div class="comment-form">
+                            @if (value == "No")
+                            {
+                                <h4>Be the first to leave a comment</h4>
+                            }
+                            else
+                            {
+                                <h4>Leave a Comment</h4>
+                            }
+
+                            <form class="form-contact comment_form" id='#payment-form'> 
+                                <div class="row">
+                                    <div class="col-12">
+                                        <div class="form-group">
+                                            <textarea class="form-control w-100" name="review" id="comment" cols="30" rows="9" placeholder="Write Comment"></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <button type="button" class="main_btn commentbutton">Submit</button>
+                                </div>
+                            </form>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<script src="~/Content/eiser/js/load-more-button.js"></script>

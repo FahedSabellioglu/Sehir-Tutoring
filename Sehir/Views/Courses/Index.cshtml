@@ -54,13 +54,15 @@
                     <div class="row">
                         @foreach (CoursesList_Result K in Model)
                         {
+                            var Imgbase64 = Convert.ToBase64String(K.img);
+                            var imgSrc = String.Format("data:image/jpg;base64,{0}", Imgbase64);
                             <div class="col-lg-4 col-md-6">
                                 <div class="single-product">
                                     <div class="product-img">
-                                        <img class="card-img" src="~/Content/eiser/img/product/inspired-product/i2.jpg" alt="">
+                                        <img class="card-img" src="@imgSrc" alt="">
                                         <div class="p_icon">
-                                            <a href="@Url.Action("Details","Courses",new { ID=K.ID, C_Code=K.C_Code, C_Name=K.C_Name,descrip=K.descrip,Price=K.Price})">
-                                                <i class="ti-eye"></i>
+                                            <a href='@Url.Action("Details",new { ID= K.ID,C_Name=K.C_Name,C_Code=K.C_Code })' >
+                                                <i class="ti-eye eyeicon" ></i>
                                             </a>
                                             @if (Request.Url.ToString()[Request.Url.ToString().Length - 1] != 'x')
                                             {
@@ -167,9 +169,10 @@
 @section scripts{
     <script src="~/Content/eiser/js/jquery-3.2.1.min.js"></script>
     <script src="~/Content/eiser/js/bootstrap.min.js"></script>
+
     <script src="~/Content/eiser/js/Deletion.js"></script>
     <script src="~/Content/eiser/js/DeletionAjax.js" data-link="/Courses/Delete" data-to="/Courses/Index" id="d_ajax"></script>
-   
+
 
 }
 

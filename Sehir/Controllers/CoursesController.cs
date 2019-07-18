@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Sehir.Controllers
 {
-        
+    [Authorize]
     public class CoursesController : Controller
     {
         
@@ -51,15 +51,15 @@ namespace Sehir.Controllers
             }
             return CoursesList;
         }
+ 
 
         public ActionResult Details(CoursesList_Result CourseObject)
         {
-            User usr = cx.Users.FirstOrDefault(x => x.id == CourseObject.ID);
-            ViewData["UserInfo"] = usr;
-
-            ViewBag.UserInfo = usr;
+            User lecdata = cx.Users.FirstOrDefault(x => x.id == CourseObject.ID);
+            UserCourseInfo_Result usrCoruse = cx.UserCourseInfo(lecdata.id, CourseObject.C_Code, CourseObject.C_Name).FirstOrDefault();
+            ViewData["UserInfo"] = lecdata;
+            return View(usrCoruse);
             
-            return View(CourseObject);
         }
 
         public ActionResult UserId(string Email, int crid)
@@ -70,6 +70,7 @@ namespace Sehir.Controllers
 
  
         [HttpPost]
+        [Authorize(Roles ="Admin,Lecturer")]
         public void Delete(int userId, string name, string code)
         {
             User usr = cx.Users.FirstOrDefault(x => x.mail == User.Identity.Name);
@@ -77,9 +78,22 @@ namespace Sehir.Controllers
 
             cx.Lecturers.Remove(lec_index);
             cx.SaveChanges();
-
-            
         }
 
+        public ActionResult Comment(C_feedBack feedbackObject)
+        {
+            feedbackObject.S_ID = cx.Users.FirstOrDefault(x => x.mail == User.Identity.Name).id;
+            feedbackObject.reviewDate = DateTime.Now;
+            cx.C_feedBack.Add(feedbackObject);
+            cx.SaveChanges();
+            return getFeedbacks(feedbackObject.T_ID, feedbackObject.C_Code, feedbackObject.C_Name);
+        }
+
+        public ActionResult getFeedbacks(int ID, string C_Code, string C_Name)
+        {
+            List<CustomFeedback_Result> feedbacks = cx.CustomFeedback(ID, C_Code, C_Name).ToList();
+            return PartialView("~/Views/Shared/Feedback.cshtml", feedbacks);
+
+        }
     }
 }
