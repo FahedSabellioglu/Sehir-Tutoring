@@ -14,12 +14,12 @@ namespace Sehir
     public partial class CoursesList_Result
     {
         public int ID { get; set; }
-        public Nullable<int> Price { get; set; }
-        public byte[] img { get; set; }
-        public string C_Name { get; set; }
         public string C_Code { get; set; }
-        public byte[] Transcript { get; set; }
-        public Nullable<bool> approv { get; set; }
         public string descrip { get; set; }
+        public byte[] img { get; set; }
+        public Nullable<int> Price { get; set; }
+        public string CName { get; set; }
+        public string U_name { get; set; }
+        public string U_Surname { get; set; }
     }
 }

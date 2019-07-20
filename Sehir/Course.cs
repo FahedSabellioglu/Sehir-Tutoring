@@ -17,6 +17,8 @@ namespace Sehir
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Course()
         {
+            this.Homework = new HashSet<Homework>();
+            this.lec_request = new HashSet<lec_request>();
             this.Lecturers = new HashSet<Lecturer>();
         }
     
@@ -24,6 +26,10 @@ namespace Sehir
         public string C_Code { get; set; }
         public string dept { get; set; }
     
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Homework> Homework { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<lec_request> lec_request { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Lecturer> Lecturers { get; set; }
     }

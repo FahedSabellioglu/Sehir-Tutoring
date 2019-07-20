@@ -14,8 +14,20 @@ namespace Sehir
     
     public partial class Homework
     {
-        public string H_Name { get; set; }
-        public string H_Code { get; set; }
-        public string dept { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Homework()
+        {
+            this.homework_request = new HashSet<homework_request>();
+            this.HomeworkMakers = new HashSet<HomeworkMaker>();
+        }
+    
+        public string title { get; set; }
+        public string C_Code { get; set; }
+    
+        public virtual Course Course { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<homework_request> homework_request { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<HomeworkMaker> HomeworkMakers { get; set; }
     }
 }

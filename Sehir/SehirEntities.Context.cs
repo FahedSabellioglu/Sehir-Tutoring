@@ -15,10 +15,10 @@ namespace Sehir
     using System.Data.Entity.Core.Objects;
     using System.Linq;
     
-    public partial class SehirEntities : DbContext
+    public partial class SehirTutoringEntities : DbContext
     {
-        public SehirEntities()
-            : base("name=SehirEntities")
+        public SehirTutoringEntities()
+            : base("name=SehirTutoringEntities")
         {
         }
     
@@ -27,14 +27,31 @@ namespace Sehir
             throw new UnintentionalCodeFirstException();
         }
     
+        public virtual DbSet<AdminTable> AdminTables { get; set; }
         public virtual DbSet<C_feedBack> C_feedBack { get; set; }
         public virtual DbSet<Course> Courses { get; set; }
+        public virtual DbSet<CourseRequest> CourseRequests { get; set; }
         public virtual DbSet<H_feedBack> H_feedBack { get; set; }
         public virtual DbSet<Homework> Homework { get; set; }
-        public virtual DbSet<HomworkMaker> HomworkMakers { get; set; }
+        public virtual DbSet<homework_request> homework_request { get; set; }
+        public virtual DbSet<HomeworkMaker> HomeworkMakers { get; set; }
+        public virtual DbSet<HomeworkRequest> HomeworkRequests { get; set; }
+        public virtual DbSet<lec_request> lec_request { get; set; }
         public virtual DbSet<Lecturer> Lecturers { get; set; }
-        public virtual DbSet<take> takes { get; set; }
         public virtual DbSet<User> Users { get; set; }
+    
+        public virtual ObjectResult<CoursesFeedBacks_Result> CoursesFeedBacks(Nullable<int> t_ID, string code)
+        {
+            var t_IDParameter = t_ID.HasValue ?
+                new ObjectParameter("T_ID", t_ID) :
+                new ObjectParameter("T_ID", typeof(int));
+    
+            var codeParameter = code != null ?
+                new ObjectParameter("Code", code) :
+                new ObjectParameter("Code", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<CoursesFeedBacks_Result>("CoursesFeedBacks", t_IDParameter, codeParameter);
+        }
     
         public virtual ObjectResult<CoursesList_Result> CoursesList(Nullable<int> id, Nullable<bool> belongs)
         {
@@ -49,7 +66,7 @@ namespace Sehir
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<CoursesList_Result>("CoursesList", idParameter, belongsParameter);
         }
     
-        public virtual ObjectResult<HomworkMaker> HomeworkList(Nullable<int> id, Nullable<bool> belongs)
+        public virtual ObjectResult<HomeworkList_Result> HomeworkList(Nullable<int> id, Nullable<bool> belongs)
         {
             var idParameter = id.HasValue ?
                 new ObjectParameter("id", id) :
@@ -59,23 +76,10 @@ namespace Sehir
                 new ObjectParameter("belongs", belongs) :
                 new ObjectParameter("belongs", typeof(bool));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<HomworkMaker>("HomeworkList", idParameter, belongsParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<HomeworkList_Result>("HomeworkList", idParameter, belongsParameter);
         }
     
-        public virtual ObjectResult<HomworkMaker> HomeworkList(Nullable<int> id, Nullable<bool> belongs, MergeOption mergeOption)
-        {
-            var idParameter = id.HasValue ?
-                new ObjectParameter("id", id) :
-                new ObjectParameter("id", typeof(int));
-    
-            var belongsParameter = belongs.HasValue ?
-                new ObjectParameter("belongs", belongs) :
-                new ObjectParameter("belongs", typeof(bool));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<HomworkMaker>("HomeworkList", mergeOption, idParameter, belongsParameter);
-        }
-    
-        public virtual ObjectResult<UserCourseInfo_Result> UserCourseInfo(Nullable<int> id, string c_Code, string c_Name)
+        public virtual ObjectResult<UserCourseInfo_Result> UserCourseInfo(Nullable<int> id, string c_Code)
         {
             var idParameter = id.HasValue ?
                 new ObjectParameter("id", id) :
@@ -85,28 +89,50 @@ namespace Sehir
                 new ObjectParameter("C_Code", c_Code) :
                 new ObjectParameter("C_Code", typeof(string));
     
-            var c_NameParameter = c_Name != null ?
-                new ObjectParameter("C_Name", c_Name) :
-                new ObjectParameter("C_Name", typeof(string));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<UserCourseInfo_Result>("UserCourseInfo", idParameter, c_CodeParameter, c_NameParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<UserCourseInfo_Result>("UserCourseInfo", idParameter, c_CodeParameter);
         }
     
-        public virtual ObjectResult<CustomFeedback_Result> CustomFeedback(Nullable<int> t_id, string code, string name)
+        public virtual ObjectResult<string> UserRoles(Nullable<int> id)
         {
-            var t_idParameter = t_id.HasValue ?
-                new ObjectParameter("T_id", t_id) :
-                new ObjectParameter("T_id", typeof(int));
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("UserRoles", idParameter);
+        }
+    
+        public virtual ObjectResult<UserHomeworkInfo_Result> UserHomeworkInfo(Nullable<int> id, string title, string code)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            var titleParameter = title != null ?
+                new ObjectParameter("title", title) :
+                new ObjectParameter("title", typeof(string));
     
             var codeParameter = code != null ?
                 new ObjectParameter("Code", code) :
                 new ObjectParameter("Code", typeof(string));
     
-            var nameParameter = name != null ?
-                new ObjectParameter("Name", name) :
-                new ObjectParameter("Name", typeof(string));
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<UserHomeworkInfo_Result>("UserHomeworkInfo", idParameter, titleParameter, codeParameter);
+        }
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<CustomFeedback_Result>("CustomFeedback", t_idParameter, codeParameter, nameParameter);
+        public virtual ObjectResult<HomeworkFeedBacks_Result> HomeworkFeedBacks(Nullable<int> t_ID, string code, string title)
+        {
+            var t_IDParameter = t_ID.HasValue ?
+                new ObjectParameter("T_ID", t_ID) :
+                new ObjectParameter("T_ID", typeof(int));
+    
+            var codeParameter = code != null ?
+                new ObjectParameter("Code", code) :
+                new ObjectParameter("Code", typeof(string));
+    
+            var titleParameter = title != null ?
+                new ObjectParameter("title", title) :
+                new ObjectParameter("title", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<HomeworkFeedBacks_Result>("HomeworkFeedBacks", t_IDParameter, codeParameter, titleParameter);
         }
     }
 }

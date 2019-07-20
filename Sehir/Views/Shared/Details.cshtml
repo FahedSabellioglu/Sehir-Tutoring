@@ -1,0 +1,285 @@
+﻿
+@{
+    ViewBag.Title = "Details";
+}
+
+@{
+    string textValue;
+    string ControllerName;
+
+    if (HttpContext.Current.Request.RequestContext.RouteData.Values["controller"].ToString() == "Courses")
+    {
+        textValue = "Request a session";
+        ControllerName = "Courses";
+
+    }
+    else
+    {
+        textValue = "Make an agreement";
+        ControllerName = "Homework";
+    }
+
+    User usrObject = (User)ViewData["UserObject"];
+
+}
+
+
+@section head{
+
+    <link href="/Content/eiser/css/load-more-button.css" rel="stylesheet">
+
+}
+
+
+
+
+
+
+<!--================End Home Banner Area =================-->
+<!--================Single Product Area =================-->
+<div class="product_image_area">
+    <div class="container">
+        <div class="row s_product_inner">
+            <div class="col-lg-6">
+
+                <div class="s_product_img">
+                    <div id="carouselExampleIndicators"
+                         class="carousel slide"
+                         data-ride="carousel">
+                        <div class="carousel-inner">
+                            <div class="carousel-item active">
+                                @{
+                                    var Imgbase64 = Convert.ToBase64String(Model.HImg);
+                                    var imgSrc = String.Format("data:image/jpg;base64,{0}", Imgbase64);
+                                }
+                                <img class="d-block w-100"
+                                     src="@imgSrc"
+                                     alt="First slide" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <section class="blog_area single-post-area">
+                    <div class="posts-list">
+                        @{
+                            var imgB64 = Convert.ToBase64String(Model.UsrImg);
+                            var imsrc = String.Format("data:image/jpg;base64,{0}", imgB64);
+                        }
+                        <div class="blog-author">
+                            <div class="media align-items-center">
+                                <img src="@imsrc" alt="">
+                                <div class="media-body s_product_text">
+                                    <a href="#">
+                                        <h4>@Model.U_name @Model.U_Surname</h4>
+                                    </a>
+                                    <ul class="list">
+                                        <li>
+                                            <a class="active" href="#">
+                                                <span>Enrolment Year</span> : @Model.enr_year
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a class="active" href="#">
+                                                <span>Dept</span> : @Model.Udept
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+            <div class="col-lg-5 offset-lg-1">
+                <div class="s_product_text">
+                    <h3 id="cname">@Model.C_Name : @Model.C_Code</h3>
+                    <h2>@Model.price TL</h2>
+                    <ul class="list">
+                        <li>
+                            <a class="active" href="#">
+                                <span>Course Code</span> : @Model.C_Code
+                            </a>
+                        </li>
+                        <li>
+                            <a class="active" href="#">
+                                <span>Dept</span> : @Model.Hdept
+                            </a>
+                        </li>
+                    </ul>
+                    <p>
+                        <span class="text-monospace">
+                            Description:
+                            @Model.descrip sahdkjashdkjashdkjsahdkjashdk jsahdkjashdkjashkjdhsa kjdhakjsdhkjsahdkjsad    kjsadkjsahdkjahsdkjahsdkjashdkjhasdkjhdkjasdh
+                        </span>
+
+                    </p>
+
+                    @if (ViewBag.check)
+                    {
+                        <div class="card_area">
+
+                            <a class="main_btn" href="#" style="font-size:18px" data-tid="@Model.H_ID" data-code="@Model.C_Code" data-title="@Model.title">@textValue</a>
+
+                        </div>
+                    }
+
+
+
+                    <div class="modal fade" id="Request" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">@textValue</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <form>
+
+                                        <div class="form-group">
+                                            <label for="message-text" class="col-form-label">Would you like to leave a note? (optional)</label>
+                                            <textarea class="form-control" id="message-text"></textarea>
+                                        </div>
+                                    </form>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                    <button type="button" class="btn btn-primary YES">Send</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <div class="modal fade" id="Notification" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Notification</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body" id="popup">
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-success CloseButton" >Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+
+
+
+
+
+
+
+<div id="target">
+    @if (ControllerName == "Homework")
+    {
+        Html.RenderAction("getFeedbacks", "Homework", new { H_ID = Model.H_ID, title = Model.title, C_Code = Model.C_Code });
+    }
+
+    else if (ControllerName == "Courses")
+    {
+        Html.RenderAction("getFeedbacks", "Courses", new {C_Code = Model.C_Code, T_ID = Model.H_ID });
+
+    }
+
+</div>
+
+
+
+
+@section scripts{
+    <script src="~/Content/eiser/js/jquery-3.2.1.min.js"></script>
+    <script src="~/Content/eiser/js/bootstrap.min.js"></script>
+    <script src="~/Content/eiser/js/load-more-button.js"></script>
+    
+    
+
+    @if (HttpContext.Current.Request.RequestContext.RouteData.Values["controller"].ToString() == "Homework")
+    {
+        <script id="commentsubmit" src="~/Content/eiser/js/CommentAjax.js" data-usid="@Model.T_ID" data-controller="Homework" data-id="@Model.H_ID" data-code="@Model.C_Code" data-name="@Model.title"></script>
+
+    }
+    else if (HttpContext.Current.Request.RequestContext.RouteData.Values["controller"].ToString() == "Courses")
+    {
+        <script id="commentsubmit" src="~/Content/eiser/js/CommentAjax.js" data-usid="@Model.T_ID" data-controller="Courses" data-id="@Model.H_ID" data-code="@Model.C_Code" data-name="@Model.title"></script>
+
+    }
+
+    <script>
+
+        $(".CloseButton").click(function () {
+            $("#Notification").removeClass("show");
+        })
+
+        $(".main_btn").click(function () {
+            $("#Request").modal("show");
+            var id = @usrObject.id;
+            var tid = $(this).data("tid");
+            var code = $(this).data("code");
+            var title = $(this).data("title"); 
+
+            $(".YES").data("id", id);
+            $(".YES").data("tid", tid);
+            $(".YES").data("code", code);
+            $(".YES").data("title", title);
+        })
+
+        $(".YES").click(function () {
+            var code = $(this).data("code");
+            var tid = $(this).data("tid");
+            var id = $(this).data("id");
+            var title = $(this).data("title");
+            var note = document.getElementById("message-text").value.trim();
+
+            if ("@ControllerName" == "Homework") {
+
+                $.ajax({
+                    type: "POST",
+                    url: "/Homework/H_Req",
+                    data: { S_ID: id, H_ID: tid, title: title, C_Code: code, note: note },
+                    success: function () { document.getElementById("popup").innerHTML = "The Request has been sent, you should be emailed back soon" },
+                    error: function () { document.getElementById("popup").innerHTML = "The Request has been sent, you should be emailed back soon" }
+                })
+            }
+
+            else if ("@ControllerName" == "Courses") {
+                 $.ajax({
+                    type: "POST",
+                    url: "/Courses/C_Req",
+                    data: { S_ID: id, T_ID: tid, C_Code: code, note: note },
+                    success: function () { document.getElementById("popup").innerHTML = "The Request has been sent, you should be emailed back soon" },
+                    error: function () { document.getElementById("popup").innerHTML = "The Request has been sent, you should be emailed back soon" }
+                 })
+                
+            }
+            $("#Request").removeClass("show");
+            $("#Notification").modal("show")
+                    
+            
+        })
+
+    </script>
+
+
+}
+
+
+
+
+
+
+

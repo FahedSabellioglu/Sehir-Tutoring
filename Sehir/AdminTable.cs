@@ -10,15 +10,12 @@
 namespace Sehir
 {
     using System;
+    using System.Collections.Generic;
     
-    public partial class HomworkMaker1
+    public partial class AdminTable
     {
         public int ID { get; set; }
-        public string H_Name { get; set; }
-        public string H_Code { get; set; }
-        public string descript { get; set; }
-        public Nullable<int> Price { get; set; }
-        public byte[] transcript { get; set; }
-        public byte[] img { get; set; }
+    
+        public virtual User User { get; set; }
     }
 }

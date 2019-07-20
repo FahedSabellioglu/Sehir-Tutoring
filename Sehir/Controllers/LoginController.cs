@@ -9,8 +9,8 @@ namespace Sehir.Controllers
 
     public class LoginController : Controller
     {
-        // GET: Login
-        SehirEntities cx = new SehirEntities();
+        
+        SehirTutoringEntities cx = new SehirTutoringEntities();
         public ActionResult Index()
         {
             return View();

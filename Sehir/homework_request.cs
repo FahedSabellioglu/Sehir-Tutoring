@@ -12,16 +12,17 @@ namespace Sehir
     using System;
     using System.Collections.Generic;
     
-    public partial class H_feedBack
+    public partial class homework_request
     {
-        public int S_ID { get; set; }
-        public int H_ID { get; set; }
+        public int ID { get; set; }
         public string title { get; set; }
         public string C_Code { get; set; }
-        public System.DateTime reviewDate { get; set; }
-        public string review { get; set; }
+        public byte[] img { get; set; }
+        public string descrip { get; set; }
+        public string adminstate { get; set; }
+        public int price { get; set; }
     
-        public virtual HomeworkMaker HomeworkMaker { get; set; }
+        public virtual Homework Homework { get; set; }
         public virtual User User { get; set; }
     }
 }

@@ -10,18 +10,16 @@
 namespace Sehir
 {
     using System;
-    using System.Collections.Generic;
     
-    public partial class H_feedBack
+    public partial class CoursesFeedBacks_Result
     {
-        public int S_ID { get; set; }
-        public int H_ID { get; set; }
-        public string title { get; set; }
-        public string C_Code { get; set; }
-        public System.DateTime reviewDate { get; set; }
+        public int T_ID { get; set; }
         public string review { get; set; }
-    
-        public virtual HomeworkMaker HomeworkMaker { get; set; }
-        public virtual User User { get; set; }
+        public string C_Code { get; set; }
+        public string C_Name { get; set; }
+        public System.DateTime reviewDate { get; set; }
+        public string U_Surname { get; set; }
+        public byte[] img { get; set; }
+        public string U_name { get; set; }
     }
 }

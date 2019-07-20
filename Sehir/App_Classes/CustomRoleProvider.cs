@@ -9,7 +9,7 @@ namespace Sehir.App_Classes
 
     public class CustomRoleProvider : RoleProvider
     {
-        SehirEntities ctx = new SehirEntities();
+        SehirTutoringEntities ctx = new SehirTutoringEntities();
         public override string ApplicationName { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
 
         public override void AddUsersToRoles(string[] usernames, string[] roleNames)
@@ -43,24 +43,12 @@ namespace Sehir.App_Classes
             if(!string.IsNullOrEmpty(username))
             {
                 User usr = ctx.Users.FirstOrDefault(x => x.mail == username);
-                Lecturer lec_usr = ctx.Lecturers.FirstOrDefault(x => x.ID == usr.id);
-                HomworkMaker ho_usr = ctx.HomworkMakers.FirstOrDefault(x => x.ID == usr.id);
-
-                if (lec_usr != null && ho_usr != null)
+                Roles = ctx.UserRoles(usr.id).ToList();
+                AdminTable adminObject = ctx.AdminTables.FirstOrDefault(x => x.ID == usr.id);
+                if (adminObject != null )
                 {
-                    Roles.Add("Lecturer");
-                    Roles.Add("HomeworkMaker");
-
+                    Roles.Add("Admin");
                 }
-                else if (lec_usr != null && ho_usr == null)
-                {
-                    Roles.Add("Lecturer");
-                }
-                else if (lec_usr == null && ho_usr != null)
-                {
-                    Roles.Add("HomeworkMaker");
-                }
-
 
             }
             return Roles.ToArray();

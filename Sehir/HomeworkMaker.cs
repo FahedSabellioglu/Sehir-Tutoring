@@ -12,24 +12,27 @@ namespace Sehir
     using System;
     using System.Collections.Generic;
     
-    public partial class HomworkMaker
+    public partial class HomeworkMaker
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public HomworkMaker()
+        public HomeworkMaker()
         {
             this.H_feedBack = new HashSet<H_feedBack>();
+            this.HomeworkRequests = new HashSet<HomeworkRequest>();
         }
     
         public int ID { get; set; }
-        public string H_Name { get; set; }
-        public string H_Code { get; set; }
-        public string descript { get; set; }
-        public Nullable<int> Price { get; set; }
-        public byte[] transcript { get; set; }
+        public string title { get; set; }
+        public string C_Code { get; set; }
         public byte[] img { get; set; }
-        public Nullable<bool> approv { get; set; }
+        public string descrip { get; set; }
+        public int price { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<H_feedBack> H_feedBack { get; set; }
+        public virtual Homework Homework { get; set; }
+        public virtual User User { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<HomeworkRequest> HomeworkRequests { get; set; }
     }
 }

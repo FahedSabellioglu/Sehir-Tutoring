@@ -503,6 +503,9 @@
     <Content Include="Global.asax" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AdminTable.cs">
+      <DependentUpon>SehirEntities.tt</DependentUpon>
+    </Compile>
     <Compile Include="App_Classes\CustomRoleProvider.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\CoursesController.cs" />
@@ -512,10 +515,13 @@
     <Compile Include="Course.cs">
       <DependentUpon>SehirEntities.tt</DependentUpon>
     </Compile>
-    <Compile Include="CoursesList_Result.cs">
+    <Compile Include="CourseRequest.cs">
       <DependentUpon>SehirEntities.tt</DependentUpon>
     </Compile>
-    <Compile Include="CustomFeedback_Result.cs">
+    <Compile Include="CoursesFeedBacks_Result.cs">
+      <DependentUpon>SehirEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="CoursesList_Result.cs">
       <DependentUpon>SehirEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="C_feedBack.cs">
@@ -527,19 +533,28 @@
     <Compile Include="Homework.cs">
       <DependentUpon>SehirEntities.tt</DependentUpon>
     </Compile>
+    <Compile Include="HomeworkFeedBacks_Result.cs">
+      <DependentUpon>SehirEntities.tt</DependentUpon>
+    </Compile>
     <Compile Include="HomeworkList_Result.cs">
       <DependentUpon>SehirEntities.tt</DependentUpon>
     </Compile>
-    <Compile Include="HomworkMaker.cs">
+    <Compile Include="HomeworkMaker.cs">
       <DependentUpon>SehirEntities.tt</DependentUpon>
     </Compile>
-    <Compile Include="HomworkMaker1.cs">
+    <Compile Include="HomeworkRequest.cs">
+      <DependentUpon>SehirEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="homework_request.cs">
       <DependentUpon>SehirEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="H_feedBack.cs">
       <DependentUpon>SehirEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Lecturer.cs">
+      <DependentUpon>SehirEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="lec_request.cs">
       <DependentUpon>SehirEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -558,13 +573,13 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>SehirEntities.edmx</DependentUpon>
     </Compile>
-    <Compile Include="take.cs">
-      <DependentUpon>SehirEntities.tt</DependentUpon>
-    </Compile>
     <Compile Include="User.cs">
       <DependentUpon>SehirEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="UserCourseInfo_Result.cs">
+      <DependentUpon>SehirEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="UserHomeworkInfo_Result.cs">
       <DependentUpon>SehirEntities.tt</DependentUpon>
     </Compile>
   </ItemGroup>
@@ -629,11 +644,12 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Home\Main.cshtml" />
-    <Content Include="Views\Courses\Details.cshtml" />
     <Content Include="Views\Shared\_ShowLayout.cshtml" />
     <Content Include="Views\Homework\Index.cshtml" />
     <Content Include="Views\Login\Index.cshtml" />
     <Content Include="Web.Config" />
+    <Content Include="Views\Courses\Index.cshtml" />
+    <Content Include="Views\Shared\Feedback.cshtml" />
     <EntityDeploy Include="SehirEntities.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>SehirEntities.Designer.cs</LastGenOutput>
@@ -641,8 +657,7 @@
     <Content Include="SehirEntities.edmx.diagram">
       <DependentUpon>SehirEntities.edmx</DependentUpon>
     </Content>
-    <Content Include="Views\Courses\Index.cshtml" />
-    <Content Include="Views\Shared\Feedback.cshtml" />
+    <Content Include="Views\Shared\Details.cshtml" />
     <None Include="Web.Debug.Config">
       <DependentUpon>Web.Config</DependentUpon>
     </None>

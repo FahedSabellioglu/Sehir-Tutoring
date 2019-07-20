@@ -7,16 +7,11 @@ using System.Web.Mvc;
 
 namespace Sehir.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "Admin,Lecturer,HomeworkMaker")]
     public class HomeController : Controller
     {
-        // GET: Home
-        
         public ActionResult Main()
         {
-
-
-         
             return View();
         }
     }

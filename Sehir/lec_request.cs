@@ -12,26 +12,16 @@ namespace Sehir
     using System;
     using System.Collections.Generic;
     
-    public partial class Lecturer
+    public partial class lec_request
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Lecturer()
-        {
-            this.C_feedBack = new HashSet<C_feedBack>();
-            this.CourseRequests = new HashSet<CourseRequest>();
-        }
-    
         public int ID { get; set; }
         public string C_Code { get; set; }
         public string descrip { get; set; }
         public byte[] img { get; set; }
-        public Nullable<int> Price { get; set; }
+        public string adminstate { get; set; }
+        public int price { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<C_feedBack> C_feedBack { get; set; }
         public virtual Course Course { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<CourseRequest> CourseRequests { get; set; }
         public virtual User User { get; set; }
     }
 }

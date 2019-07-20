@@ -13,13 +13,11 @@ namespace Sehir.Controllers
     [Authorize]
     public class CoursesController : Controller
     {
-        
-          // GET: Courses
-        SehirEntities cx = new SehirEntities();
+        SehirTutoringEntities cx = new SehirTutoringEntities();
         public ActionResult Index(int? page, int? id=0)
         {
             List<CoursesList_Result> courses_offered = Data(id);
-            List<string> Allcourses = courses_offered.OrderBy(x=>x.C_Name).Select(x => x.C_Name).Distinct().ToList();
+            List<string> Allcourses = courses_offered.Select(x => x.CName).Distinct().ToList();
             List<string> Deps = cx.Courses.Select(x => x.dept).Distinct().ToList();
             PagedList<CoursesList_Result> j = new PagedList<CoursesList_Result>(courses_offered, page ?? 1, 9);
 
@@ -28,7 +26,6 @@ namespace Sehir.Controllers
             ViewBag.desc = "Course desc";
             ViewBag.A_name = "Index";
             ViewBag.C_name = "Courses";
-
 
             ViewBag.CNames = Allcourses;
             ViewBag.Dep = Deps;
@@ -43,7 +40,6 @@ namespace Sehir.Controllers
             if (id == 1)
             {
                 CoursesList = cx.CoursesList(usr.id, true).ToList();
-                
             }
             else
             {
@@ -53,12 +49,17 @@ namespace Sehir.Controllers
         }
  
 
-        public ActionResult Details(CoursesList_Result CourseObject)
+        public ActionResult Details(Lecturer CourseObject)
         {
-            User lecdata = cx.Users.FirstOrDefault(x => x.id == CourseObject.ID);
-            UserCourseInfo_Result usrCoruse = cx.UserCourseInfo(lecdata.id, CourseObject.C_Code, CourseObject.C_Name).FirstOrDefault();
-            ViewData["UserInfo"] = lecdata;
-            return View(usrCoruse);
+            UserCourseInfo_Result usrCoruse = cx.UserCourseInfo(CourseObject.ID, CourseObject.C_Code).First();
+
+
+            User UsrObject = cx.Users.FirstOrDefault(x => x.mail == User.Identity.Name);
+            ViewBag.check = CourseObject.ID != UsrObject.id ? true : false;
+
+
+            ViewData["UserObject"] = UsrObject;
+            return View("~/Views/Shared/Details.cshtml",usrCoruse);
             
         }
 
@@ -74,7 +75,7 @@ namespace Sehir.Controllers
         public void Delete(int userId, string name, string code)
         {
             User usr = cx.Users.FirstOrDefault(x => x.mail == User.Identity.Name);
-            Lecturer lec_index = cx.Lecturers.FirstOrDefault(x => x.ID == usr.id && x.C_Name == name && x.C_Code==code);
+            Lecturer lec_index = cx.Lecturers.FirstOrDefault(x => x.ID == usr.id  && x.C_Code==code);
 
             cx.Lecturers.Remove(lec_index);
             cx.SaveChanges();
@@ -87,8 +88,27 @@ namespace Sehir.Controllers
             cx.C_feedBack.Add(feedbackObject);
             cx.SaveChanges();
 
-            List<CustomFeedback_Result> feedbacks = cx.CustomFeedback(feedbackObject.T_ID, feedbackObject.C_Code, feedbackObject.C_Name).ToList();
+            return getFeedbacks(feedbackObject);
+        }
+
+        public ActionResult getFeedbacks (C_feedBack FeedBackObject)
+        {
+            List<CoursesFeedBacks_Result> feedbacks = cx.CoursesFeedBacks(FeedBackObject.T_ID, FeedBackObject.C_Code).ToList();
+            User UsrObject = cx.Users.FirstOrDefault(x => x.mail == User.Identity.Name);
+
+            ViewBag.check = FeedBackObject.T_ID != UsrObject.id ? true : false;
+
+
             return PartialView("~/Views/Shared/Feedback.cshtml", feedbacks);
+
+        }
+        [HttpPost]
+        public void C_Req(CourseRequest Req)
+        {
+            Req.ReqDate = DateTime.Now;
+
+            cx.CourseRequests.Add(Req);
+            cx.SaveChanges();
         }
     }
 }

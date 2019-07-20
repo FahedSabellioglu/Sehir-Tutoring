@@ -16,7 +16,6 @@ namespace Sehir
     {
         public int S_ID { get; set; }
         public int T_ID { get; set; }
-        public string C_Name { get; set; }
         public string C_Code { get; set; }
         public string review { get; set; }
         public System.DateTime reviewDate { get; set; }
