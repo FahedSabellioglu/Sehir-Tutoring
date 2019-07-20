@@ -446,7 +446,6 @@
     <Content Include="Content\eiser\img\product\single-product\s-product-s-4.jpg" />
     <Content Include="Content\eiser\index.html" />
     <Content Include="Content\eiser\js\bootstrap.min.js" />
-    <Content Include="Content\eiser\js\CommentAjax.js" />
     <Content Include="Content\eiser\js\contact.js" />
     <Content Include="Content\eiser\js\custom.js" />
     <Content Include="Content\eiser\js\Deletion.js" />
@@ -648,7 +647,6 @@
     <Content Include="Views\Homework\Index.cshtml" />
     <Content Include="Views\Login\Index.cshtml" />
     <Content Include="Web.Config" />
-    <Content Include="Views\Courses\Index.cshtml" />
     <Content Include="Views\Shared\Feedback.cshtml" />
     <EntityDeploy Include="SehirEntities.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
@@ -658,6 +656,7 @@
       <DependentUpon>SehirEntities.edmx</DependentUpon>
     </Content>
     <Content Include="Views\Shared\Details.cshtml" />
+    <Content Include="Views\Courses\Index.cshtml" />
     <None Include="Web.Debug.Config">
       <DependentUpon>Web.Config</DependentUpon>
     </None>
