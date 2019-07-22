@@ -411,6 +411,9 @@
           <Parameter Name="id" Type="int" Mode="In" />
           <Parameter Name="belongs" Type="bit" Mode="In" />
         </Function>
+        <Function Name="CoursesOffer" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+        </Function>
         <Function Name="HomeworkFeedBacks" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="T_ID" Type="int" Mode="In" />
           <Parameter Name="Code" Type="varchar" Mode="In" />
@@ -1070,6 +1073,9 @@
             <Parameter Name="Code" Mode="In" Type="String" />
             <Parameter Name="title" Mode="In" Type="String" />
           </FunctionImport>
+          <FunctionImport Name="CoursesOffer" ReturnType="Collection(SehirTutoringModel.CoursesOffer_Result)">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+          </FunctionImport>
         </EntityContainer>
         <ComplexType Name="CoursesFeedBacks_Result">
           <Property Type="Int32" Name="T_ID" Nullable="false" />
@@ -1144,6 +1150,11 @@
           <Property Type="String" Name="U_name" Nullable="false" MaxLength="50" />
           <Property Type="String" Name="U_Surname" Nullable="false" MaxLength="50" />
           <Property Type="Binary" Name="img" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="CoursesOffer_Result">
+          <Property Type="String" Name="C_Name" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="C_Code" Nullable="false" MaxLength="20" />
+          <Property Type="String" Name="dept" Nullable="false" MaxLength="20" />
         </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
@@ -1380,6 +1391,15 @@
                 <ScalarProperty Name="U_name" ColumnName="U_name" />
                 <ScalarProperty Name="U_Surname" ColumnName="U_Surname" />
                 <ScalarProperty Name="img" ColumnName="img" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="CoursesOffer" FunctionName="SehirTutoringModel.Store.CoursesOffer">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="SehirTutoringModel.CoursesOffer_Result">
+                <ScalarProperty Name="C_Name" ColumnName="C_Name" />
+                <ScalarProperty Name="C_Code" ColumnName="C_Code" />
+                <ScalarProperty Name="dept" ColumnName="dept" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>

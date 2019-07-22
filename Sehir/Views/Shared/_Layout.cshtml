@@ -56,53 +56,62 @@
                                     <li class="nav-item">
                                         <a class="nav-link" href="/Home/Main">Home</a>
                                     </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" href="/Courses/Index">Courses</a>
+                                    <li class="nav-item submenu dropdown">
+                                        <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Courses</a>
+                                        <ul class="dropdown-menu">
+                                            <li class="nav-item">
+                                                <a class="nav-link" href="/Courses/Index">Offered Courses</a>
+                                            </li>
+                                            @if (User.IsInRole("Lecturer"))
+                                            {
+                                                <li class="nav-item">
+                                                    <a class="nav-link" href="/Courses/Index/1">My Courses</a>
+                                                </li>
+                                            }
+                                            <li class="nav-item">
+                                                <a class="nav-link offer" href='@Url.Action("CourseOfferPage","Courses",new {mail=User.Identity.Name })'>Offer a course</a>
+                                            </li>
+                                        </ul>
                                     </li>
 
-                                    @if (User.IsInRole("Lecturer"))
-                                    {
-                                        <li class="nav-item">
-                                            <a class="nav-link" href="/Courses/Index/1">My Courses </a>
-                                        </li>
-                                    }
-
-                                    <li class="nav-item">
-                                        <a class="nav-link" href="/Homework/Index">Homeworks</a>
+                                    <li class="nav-item submenu dropdown">
+                                        <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Homeworks</a>
+                                        <ul class="dropdown-menu">
+                                            <li class="nav-item">
+                                                <a class="nav-link" href="/Homework/Index">Offered Homeworks</a>
+                                            </li>
+                                            @if (User.IsInRole("HomeworkMaker"))
+                                            {
+                                                <li class="nav-item">
+                                                    <a class="nav-link" href="/Homework/Index/1">My Homeworks</a>
+                                                </li>
+                                            }
+                                            <li class="nav-item">
+                                                <a class="nav-link" href='@Url.Action("HomeworkOfferPage","Homework",new {mail=User.Identity.Name })'>Offer a Homework</a>
+                                            </li>
+                                        </ul>
                                     </li>
-
-                                    @if (User.IsInRole("HomeworkMaker"))
-                                    {
-                                        <li class="nav-item">
-                                            <a class="nav-link" href="/Homework/Index/1">My Homeworks</a>
-                                        </li>
-
-                                    }
 
                                     <li class="nav-item">
                                         <a class="nav-link" href="#contact">Contact</a>
                                     </li>
+
+
                                 </ul>
                             </div>
 
                             <div class="col-lg-2 pr-5">
                                 <ul class="nav navbar-nav navbar-right right_nav pull-right">
-                                    <li class="nav-item submenu dropdown">
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="/Login/Logout">Log Out</a>
+                                    </li>
+                                    @*<li class="nav-item submenu dropdown">
                                         <a href="#" class="nav-link dropdown-toggle icons" data-toggle="dropdown" role="button" aria-haspopup="true"
                                            aria-expanded="false">
-                                        <i class="ti-user " aria-hidden="true"> </i>
+                                            <i class="ti-user" aria-hidden="true"> </i>
                                         </a>
-                                        <ul class=" dropdown-menu w-75">
-                                            <li class="nav-item">
-                                                <a class="nav-link" href="/Login/Logout">Log Out</a>
-                                            </li>
-                                            <li class="nav-item">
-                                                <a class="nav-link" href="single-blog.html">Blog Details</a>
-                                            </li>
-                                        </ul>
-                                    </li>
-
-                                      
+                                        <ul class=" dropdown-menu w-75"></ul>
+                                    </li>*@
                                 </ul>
                             </div>
                         </div>
@@ -111,8 +120,11 @@
             </div>
         </div>
     </header>
-    <!--================Header Menu Area =================-->
-    <!--================Home Banner Area =================-->
+
+    <div id="modaltarget">
+
+    </div>
+
     @RenderBody()
     <footer class="footer-area section_gap">
         <div class="container">
@@ -155,9 +167,12 @@
             </div>
         </div>
     </footer>
+
+
     <!--================ End footer Area  =================-->
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+
     <script src="/Content/eiser/js/jquery-3.2.1.min.js"></script>
     <script src="/Content/eiser/js/popper.js"></script>
     <script src="/Content/eiser/js/bootstrap.min.js"></script>
@@ -171,10 +186,13 @@
     <script src="/Content/eiser/vendors/counter-up/jquery.waypoints.min.js"></script>
     <script src="/Content/eiser/vendors/counter-up/jquery.counterup.js"></script>
     <script src="/Content/eiser/js/mail-script.js"></script>
-    <script src="/Content/eiser/js/theme.js"></script>
-    @RenderSection("scripts",false)
 
- 
+    @*<script src="/Content/eiser/js/theme.js"></script>*@
+
+
+    @RenderSection("scripts", false)
+
+
 </body>
 
 </html>

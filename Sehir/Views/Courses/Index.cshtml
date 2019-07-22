@@ -16,12 +16,11 @@
         <div class="container">
             <div class="banner_content d-md-flex justify-content-between align-items-center">
                 <div class="mb-3 mb-md-0">
-                    <h2>@ViewBag.name</h2>
-                    <p>@ViewBag.desc</p>
+                    <h2>Courses</h2>
                 </div>
                 <div class="page_link">
                     <a href="/Home/Main">Home</a>
-                    <a href="/@ViewBag.C_name/Index">@ViewBag.name</a>
+                    <a href="/Courses/Index">Offerd Courses</a>
                 </div>
             </div>
         </div>
@@ -60,9 +59,12 @@
                                 <div class="single-product">
                                     <div class="product-img">
                                         <img class="card-img" src="@imgSrc" alt="">
+                                        <div class="price-top">
+                                            <h6>@K.Price TL</h6>
+                                        </div>
                                         <div class="p_icon">
-                                            <a href='@Url.Action("Details",new { ID= K.ID,C_Name=K.CName,C_Code=K.C_Code })' >
-                                                <i class="ti-eye eyeicon" ></i>
+                                            <a href='@Url.Action("Details",new { ID= K.ID,C_Name=K.CName,C_Code=K.C_Code })'>
+                                                <i class="ti-eye eyeicon"></i>
                                             </a>
                                             @if (Request.Url.ToString()[Request.Url.ToString().Length - 1] != 'x')
                                             {
@@ -77,7 +79,7 @@
                                             <h4>@K.CName</h4>
                                         </a>
                                         <div class="mt-3">
-                                            <span class="mr-4">$25.00</span>
+                                            <span class="mr-4" style="font-size:14px;">By: @K.U_name @K.U_Surname</span>
                                         </div>
                                     </div>
                                 </div>
@@ -89,7 +91,7 @@
 
 
                     <nav>
-                        @Html.PagedListPager(Model, page => Url.Action(ViewBag.A_name, ViewBag.C_name, new { page }), new PagedListRenderOptions
+                        @Html.PagedListPager(Model, page => Url.Action("Index","Courses", new { page }), new PagedListRenderOptions
                         {
 
                         ContainerDivClasses = new[] { "" },
@@ -167,8 +169,6 @@
 </section>
 
 @section scripts{
-    <script src="~/Content/eiser/js/jquery-3.2.1.min.js"></script>
-    <script src="~/Content/eiser/js/bootstrap.min.js"></script>
 
     <script src="~/Content/eiser/js/Deletion.js"></script>
     <script src="~/Content/eiser/js/DeletionAjax.js" data-link="/Courses/Delete" data-to="/Courses/Index" id="d_ajax"></script>

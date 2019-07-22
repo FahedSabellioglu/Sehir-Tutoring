@@ -54,7 +54,11 @@
                             <div class="col-lg-4 col-md-6">
                                 <div class="single-product">
                                     <div class="product-img">
-                                        <img class="card-img" src="~/Content/eiser/img/product/inspired-product/i2.jpg" alt="">
+                                        @{ 
+                                            var Imgbase64 = Convert.ToBase64String(K.img);
+                                            var imgSrc = String.Format("data:image/jpg;base64,{0}", Imgbase64);
+                                        }
+                                        <img class="card-img" src="@imgSrc" alt="">
                                             <div class="price-top">
                                                 <h6>@K.price TL</h6>
                                             </div>
@@ -174,8 +178,8 @@
 
 
 @section scripts{
-    <script src="~/Content/eiser/js/jquery-3.2.1.min.js"></script>
-    <script src="~/Content/eiser/js/bootstrap.min.js"></script>
+    @*<script src="~/Content/eiser/js/jquery-3.2.1.min.js"></script>
+    <script src="~/Content/eiser/js/bootstrap.min.js"></script>*@
     <script src="~/Content/eiser/js/Deletion.js"></script>
     <script src="~/Content/eiser/js/DeletionAjax.js" data-link="/Homework/Delete" data-to="/Homework/Index" id="d_ajax"></script>
    

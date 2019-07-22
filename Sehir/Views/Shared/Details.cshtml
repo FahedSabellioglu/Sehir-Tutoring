@@ -118,14 +118,12 @@
                     {
                         <div class="card_area">
 
-                            <a class="main_btn" href="#" style="font-size:18px" data-tid="@Model.H_ID" data-code="@Model.C_Code" data-title="@Model.title">@textValue</a>
+                            <a class="main_btn main_btn_class" href="#" style="font-size:18px" data-tid="@Model.H_ID" data-code="@Model.C_Code" data-title="@Model.title">@textValue</a>
 
                         </div>
                     }
 
-
-
-                    <div class="modal fade" id="Request" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal " id="Request" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                         <div class="modal-dialog" role="document">
                             <div class="modal-content">
                                 <div class="modal-header">
@@ -154,7 +152,7 @@
 
             </div>
         </div>
-        <div class="modal fade" id="Notification" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal" id="Notification" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -180,10 +178,6 @@
 
 
 
-
-
-
-
 <div id="target">
     @if (ControllerName == "Homework")
     {
@@ -202,9 +196,8 @@
 
 
 @section scripts{
-    <script src="~/Content/eiser/js/jquery-3.2.1.min.js"></script>
-    <script src="~/Content/eiser/js/bootstrap.min.js"></script>
-    <script src="~/Content/eiser/js/load-more-button.js"></script>
+
+    <script src="/Content/eiser/js/load-more-button.js"></script>
     
     
 
@@ -223,9 +216,14 @@
 
         $(".CloseButton").click(function () {
             $("#Notification").removeClass("show");
+            var NotiElement = document.getElementById("Notification")
+            NotiElement.style.display = 'none';
+            NotiElement.setAttribute("aria-hidden", true);
+
+            $(".modal-backdrop").remove();
         })
 
-        $(".main_btn").click(function () {
+        $(".main_btn_class").click(function () {
             $("#Request").modal("show");
             var id = @usrObject.id;
             var tid = $(this).data("tid");
@@ -267,9 +265,10 @@
                 
             }
             $("#Request").removeClass("show");
+            var ReqElement = document.getElementById("Request")
+            ReqElement.style.display = 'none';
+            ReqElement.setAttribute("aria-hidden", true);
             $("#Notification").modal("show")
-                    
-            
         })
 
     </script>

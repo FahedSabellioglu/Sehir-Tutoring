@@ -12,6 +12,7 @@ namespace Sehir.Controllers
     {
         public ActionResult Main()
         {
+
             return View();
         }
     }

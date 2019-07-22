@@ -14,24 +14,14 @@ namespace Sehir
 
 using System;
     
-public partial class CoursesList_Result
+public partial class CoursesOffer_Result
 {
 
-    public int ID { get; set; }
+    public string C_Name { get; set; }
 
     public string C_Code { get; set; }
 
-    public string descrip { get; set; }
-
-    public byte[] img { get; set; }
-
-    public Nullable<int> Price { get; set; }
-
-    public string CName { get; set; }
-
-    public string U_name { get; set; }
-
-    public string U_Surname { get; set; }
+    public string dept { get; set; }
 
 }
 

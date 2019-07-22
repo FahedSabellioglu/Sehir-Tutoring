@@ -9,6 +9,7 @@ namespace Sehir.App_Classes
 
     public class CustomRoleProvider : RoleProvider
     {
+
         SehirTutoringEntities ctx = new SehirTutoringEntities();
         public override string ApplicationName { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
 
