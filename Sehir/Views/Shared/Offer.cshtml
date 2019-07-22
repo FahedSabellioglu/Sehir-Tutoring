@@ -1,0 +1,297 @@
+﻿
+@{
+    ViewBag.Title = "Offer";
+    string ControllerName;
+    string Title;
+    string ActionName;
+    string col;
+    List<HomeworkList_Result> Homeworkdata = null;
+    if (HttpContext.Current.Request.RequestContext.RouteData.Values["controller"].ToString() == "Courses")
+    {
+        ControllerName = "Courses";
+        ActionName = "Course_Req";
+        Title = "Offer a course";
+        col = "6";
+    }
+    else
+    {
+        col = "4";
+        ControllerName = "Homework";
+        Title = "Offer a Homework";
+        ActionName = "Homework_Req";
+
+        Homeworkdata = (List<HomeworkList_Result>)ViewBag.Hdata;
+    }
+}
+
+<section class="banner_area">
+    <div class="banner_inner d-flex align-items-center">
+        <div class="container">
+            <div class="banner_content d-md-flex justify-content-between align-items-center">
+                <div class="mb-3 mb-md-0">
+                    <h2>@Title</h2>
+                    <p>Very pleased for joining us.</p>
+                </div>
+                <div class="page_link">
+                    <a href="/Home/Main">Home</a>
+                    <a href="">@Title</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<section class="checkout_area section_gap">
+    <div class="container">
+        <div class="billing_details">
+            <div class="row">
+                <div class="col-lg-12">
+                    <h3>@ControllerName Details</h3>
+                   @using (Html.BeginForm(ActionName, ControllerName, FormMethod.Post, new { enctype = "multipart/form-data" }))
+                    {
+                        <!--Course Codes select-->
+                <div class="row contact_form">
+                    <div class="col-md-@col form-group p_star">
+                        <select class="form-control" name="C_Code" id="c_code">
+                            @foreach (CoursesOffer_Result C in Model)
+                            {
+                                <option value="@C.C_Code">@C.C_Code</option>
+
+                            }
+                        </select>
+                    </div>
+                    <!---->
+                    <!--Course Names select-->
+                    <div class="col-md-@col form-group">
+                        <select class="form-control" name="C_Name" id="c_name">
+                            @foreach (CoursesOffer_Result C in Model)
+                            {
+                                <option value="@C.C_Code">@C.C_Name</option>
+                            }
+                        </select>
+                    </div>
+
+                    <!---->
+                    <!--If its the homework offer page-->
+                    @if (Homeworkdata != null)
+                    {
+                        <div class="col-md-@col form-group">
+                            <select class="form-control" name="title" id="hTitle">
+                                @foreach (HomeworkList_Result H in Homeworkdata)
+                                {
+                                    <option value="@H.title" data-options="@H.C_Code">@H.title</option>
+                                }
+                            </select>
+                        </div>
+                    }
+                    <!---->
+
+
+
+                    <div class="col-md-8 form-group">
+                        <div class="creat_account">
+                            <input type="checkbox" id="checkbox" name="newcourse" />
+                            <label for="f-option2">add a new course?</label>
+                        </div>
+                    </div>
+
+
+                    <!--Add a homework-->
+                    @if (ControllerName == "Homework")
+
+                    {
+                        <div class="col-md-4 form-group">
+                            <div class="creat_account">
+                                <input type="checkbox" id="h_checkbox" />
+                                <label for="f-option2">add a new Homework?</label>
+                            </div>
+                        </div>
+
+                    }
+                    <!---->
+                    <!--Homework title-->
+                    <div id="new-homework" style="display:none;" class="col-md-12 form-group">
+                        <div class="col-md-6 form-group p_star">
+                            <input type="text"
+                                   class="form-control"
+                                   id="HomeworkTitle" placeholder="Homework Title" />
+                        </div>
+                    </div>
+                    <!---->
+                    <!--if add course checkbox is pressed-->
+                    <div id="new-course" style="display:none;" class="col-md-12 form-grou">
+                        <div class="col-md-6 form-group p_star">
+                            <input type="text"
+                                   class="form-control"
+                                   id="newcode" placeholder="Course Code" />
+
+                        </div>
+
+                        <div class="col-md-4 form-group p_star">
+                            <input type="text"
+                                   class="form-control"
+                                   id="newname" placeholder="Course Name" />
+                        </div>
+
+                        <div class="col-md-6 form-group p_star">
+                            <input type="text"
+                                   class="form-control"
+                                   name="dept" placeholder="Course dept" />
+                        </div>
+
+                        @if (ControllerName == "Homework")
+                        {
+                            <div class="col-md-6 form-group p_star">
+                                <input type="text"
+                                       class="form-control"
+                                       name="title" placeholder="Homework title" />
+                            </div>
+                        }
+
+                    </div>
+                    <!---->
+
+                    <div class="col-md-6 form-group">
+                        <input type='file' name="img" id='upfile' value="Upload image" />
+                        <label class="col-form-label"></label>
+                    </div>
+
+                    @if (ViewBag.transcript == true)
+                    {
+                        <div class="col-md-6 form-group">
+                            <input type='file' name="transcript" id='upfile' value="Upload transcript" required />
+                            <label class="col-form-label"></label>
+                        </div>
+                    }
+
+
+                    <div class="col-md-4 ml-auto form-group">
+                        <input type="number"
+                               class="form-control"
+                               name="price"
+                               placeholder="Price" required />
+                    </div>
+
+                    <div class="col-md-12 form-group p_star">
+                        <textarea type="text"
+                                  class="form-control"
+                                  name="descrip" placeholder="Description"></textarea>
+
+                    </div>
+                    <div class="col-md-7 ml-auto form-group">
+                        <button type="submit" id="submitbutton" value="Upload Image" class="btn btn-success">
+                            Submit
+                        </button>
+                    </div>
+                </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<div class="modal" tabindex="-1" role="dialog" id="notice">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Notice</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p id="text"></p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+@section scripts{
+
+    @if (ViewBag.message != null)
+    {
+        <script>
+            document.getElementById("text").innerHTML = "@ViewBag.message";
+            $("#notice").modal("show");
+        </script>
+
+        ViewBag.message = null;
+    }
+
+    <script src="~/Content/eiser/js/ChainedSelectBoxses.js"></script>
+
+    <script>
+
+        // add course group
+        var checkbox = document.getElementById('checkbox');
+        var Code = document.getElementById('new-course');
+        var codeelement = document.getElementById("newcode");
+        var nameelement = document.getElementById("newname");
+        var c_code = document.getElementById("c_code");
+        var c_name = document.getElementById("c_name");
+
+        var ShiftAttr = function (element_1, element_2, value) {
+            element_1.setAttribute("name", value);
+            element_2.removeAttribute("name");
+            element_2.setAttribute("disabled", "disabled");
+            element_1.removeAttribute("disabled");
+        }
+
+
+         if (document.getElementById("h_checkbox")) {
+             //homework group
+        var H_checkbox = document.getElementById("h_checkbox");
+        var Homework = document.getElementById("new-homework");
+        var hTitle = document.getElementById("hTitle");
+        var newhomworkelment = document.getElementById("HomeworkTitle");
+
+        var showhomeworktitle = function () {
+            if (H_checkbox.checked) {
+                Homework.style['display'] = 'block';
+                ShiftAttr(newhomworkelment, hTitle, "title");
+
+            }
+            else {
+                Homework.style['display'] = 'none';
+                ShiftAttr( hTitle,newhomworkelment,"title")
+            }
+            }
+            H_checkbox.onclick = showhomeworktitle;
+            showhomeworktitle();
+        }
+
+        var showHiddenDiv = function () {
+            if (checkbox.checked) {
+                Code.style['display'] = 'block';
+                ShiftAttr(codeelement, c_code,"C_Code");
+                ShiftAttr(nameelement, c_name, "C_Name");
+                
+
+            } else {
+                Code.style['display'] = 'none';
+                ShiftAttr( c_code,codeelement,"C_Code");
+                ShiftAttr( c_name,nameelement,"C_Name");
+            }
+
+        }
+
+
+       
+
+        checkbox.onclick = showHiddenDiv;
+        showHiddenDiv();
+
+    </script>
+
+
+
+}
