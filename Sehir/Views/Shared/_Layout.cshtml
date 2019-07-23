@@ -95,6 +95,14 @@
                                     <li class="nav-item">
                                         <a class="nav-link" href="#contact">Contact</a>
                                     </li>
+                                    @if (User.IsInRole("Admin"))
+
+                                    {
+                                        <li class="nav-item">
+                                            <a class="nav-link" href='@Url.Action("/Admin/PendingRequest")'>Offer Requests</a>
+                                        </li>
+                                    }
+
 
 
                                 </ul>
@@ -105,13 +113,7 @@
                                     <li class="nav-item">
                                         <a class="nav-link" href="/Login/Logout">Log Out</a>
                                     </li>
-                                    @*<li class="nav-item submenu dropdown">
-                                        <a href="#" class="nav-link dropdown-toggle icons" data-toggle="dropdown" role="button" aria-haspopup="true"
-                                           aria-expanded="false">
-                                            <i class="ti-user" aria-hidden="true"> </i>
-                                        </a>
-                                        <ul class=" dropdown-menu w-75"></ul>
-                                    </li>*@
+
                                 </ul>
                             </div>
                         </div>
@@ -142,9 +144,9 @@
                     <h4>Wanna Contribute to the project?</h4>
                     <p>Please provide us your email and the developers will reach you.</p>
                     <div class="form-wrap" id="mc_embed_signup">
-                        <form target="_blank" action="https://spondonit.us12.list-manage.com/subscribe/post?u=1462626880ade1ac87bd9c93a&amp;id=92a4423d01"
+                        <form action="/Home/Contribute"
                               method="get" class="form-inline">
-                            <input class="form-control" name="EMAIL" placeholder="Your Email Address" onfocus="this.placeholder = ''"
+                            <input class="form-control" name="mail" placeholder="Your Email Address" onfocus="this.placeholder = ''"
                                    onblur="this.placeholder = 'Your Email Address '" required="" type="email">
                             <button class="click-btn btn btn-default">Send</button>
                             <div style="position: absolute; left: -5000px;">
@@ -186,9 +188,6 @@
     <script src="/Content/eiser/vendors/counter-up/jquery.waypoints.min.js"></script>
     <script src="/Content/eiser/vendors/counter-up/jquery.counterup.js"></script>
     <script src="/Content/eiser/js/mail-script.js"></script>
-
-    @*<script src="/Content/eiser/js/theme.js"></script>*@
-
 
     @RenderSection("scripts", false)
 

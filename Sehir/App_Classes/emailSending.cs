@@ -11,7 +11,7 @@ namespace Sehir.App_Classes
         public string fromMail;
         public string StdMail;
 
-        public emailSending(string fromMail, string stdMail)
+        public emailSending(string fromMail, string stdMail="")
         {
             this.fromMail = fromMail;
             this.StdMail = stdMail;
@@ -21,28 +21,32 @@ namespace Sehir.App_Classes
         {
             string message = "Sehir Tutoring:\nYour Offer with the code" + code +" and the title " + title + " from the user with the email: "
                 + this.StdMail + "." + "\n" +"Please email him as soon as possible.";
-            
+
+            string Subject = "Sehir Tutoring Request";
+            if (usrMessage != "")
+            {
+                message += "\n" + "The following message is from the user:\n" + usrMessage;
+
+            }
+            this.SendProcedure(message, Subject);
+
+
+        }
+        public void SendProcedure(string Message, string Subject)
+        {
             try
             {
-
                 MailMessage mail = new MailMessage();
-                mail.To.Add(fromMail);
+                mail.To.Add(this.fromMail);
                 mail.From = new MailAddress("qwer1x1@gmail.com");
-                mail.Subject = "Sehir Tutoring Request";
-                if (usrMessage != "")
-                {
-                    mail.Body = message + "\n" + "The following message is from the user:\n" + usrMessage;
+                mail.Subject = Subject;
+                mail.Body = Message;
 
-                }
-                else
-                {
-                    mail.Body = message;
-                }
                 mail.IsBodyHtml = true;
                 SmtpClient smtp = new SmtpClient("smtp.gmail.com", 587);
                 smtp.EnableSsl = true;
                 smtp.UseDefaultCredentials = false;
-                smtp.Credentials = new System.Net.NetworkCredential("qwer1x1@gmail.com", "ekokobaba1");
+                smtp.Credentials = new System.Net.NetworkCredential("qwer1x1@gmail.com", "**");
                 smtp.Send(mail);
             }
             catch
@@ -50,8 +54,15 @@ namespace Sehir.App_Classes
 
             }
 
-
-
         }
+        public void ForgotPass(string pass)
+        {
+            string Subject = "Sehir Tutoring Password";
+            string Message = "You have forgot your password, here is your password" + pass;
+
+            this.SendProcedure(Message, Subject);
+        }
+
+
     }
 }

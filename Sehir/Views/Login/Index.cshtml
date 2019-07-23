@@ -1,6 +1,10 @@
 ﻿
 @{
     Layout = null;
+
+
+
+
 }
 
 <!--Author: W3layouts
@@ -18,14 +22,16 @@ License URL: http://creativecommons.org/licenses/by/3.0/
     <meta charset="UTF-8" />
     <meta name="keywords" content="Triple Forms Responsive Widget,Login form widgets, Sign up Web forms , Login signup Responsive web form,Flat Pricing table,Flat Drop downs,Registration Forms,News letter Forms,Elements" />
     <script>
-		addEventListener("load", function () {
-			setTimeout(hideURLbar, 0);
-		}, false);
+        addEventListener("load", function () {
+            setTimeout(hideURLbar, 0);
+        }, false);
 
-		function hideURLbar() {
-			window.scrollTo(0, 1);
-		}
-    </script>
+        function hideURLbar() {
+            window.scrollTo(0, 1);
+        }
+
+/**/</script>
+    <link href="~/Content/eiser/css/bootstrap.css" rel="stylesheet" />
     <!-- Meta tag Keywords -->
     <!-- css files -->
     <link rel="stylesheet" href="/Content/web/css/style.css" type="text/css" media="all" />
@@ -55,6 +61,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                     <label for="option1" class="icon-left-w3pvt"><span class="fa fa-user-circle" aria-hidden="true"></span>Login</label>
                     <article>
                         <form action="/Login/login" method="post">
+
                             <h3 class="legend">Login Here</h3>
                             <div class="input">
                                 <span class="fa fa-envelope-o" aria-hidden="true"></span>
@@ -62,32 +69,80 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                             </div>
                             <div class="input">
                                 <span class="fa fa-key" aria-hidden="true"></span>
-                                <input type="password" placeholder="Password" name="pass" required />
+                                <input type="password" placeholder="Passwored" name="pass" required />
                             </div>
                             <button type="submit" class="btn submit">Login</button>
                             <a href="#" class="bottom-text-w3ls forget" style="visibility:hidden;">Forgot Password?</a>
                         </form>
                     </article>
                 </div>
-                <div id="section2" class="section-w3ls">
+                <div id="section2" class="section-w3ls section-w3ls_req">
                     <input type="radio" name="sections" id="option2">
                     <label for="option2" class="icon-left-w3pvt"><span class="fa fa-pencil-square" aria-hidden="true"></span>Register</label>
                     <article>
                         <form action="/Login/Register" method="post">
-                            <h3 class="legend">Register Here</h3>
-                            <div class="input">
-                                <span class="fa fa-user-o" aria-hidden="true"></span>
-                                <input type="email" placeholder="Username" name="email" required />
+                            <div class="row special_form">
+                                <h3 class="legend col-md-12">Register Here</h3>
+                                <div class="col-md-4" style="padding-left:0px;padding-right:0px">
+                                    <div class="input column_special">
+                                        <span class="fa fa-user" aria-hidden="true"></span>
+                                        <input type="text" placeholder="Name" name="U_name" required />
+                                    </div>
+                                </div>
+                                <div class="col-md-4" style="padding-left:0px;padding-right:0px">
+                                    <div class="input">
+                                        <span class="fa fa-user" aria-hidden="true"></span>
+                                        <input type="text" placeholder="Surname" name="U_Surname" required />
+                                    </div>
+                                </div>
+                                <div class="col-md-4" style="padding-left:0px;padding-right:0px">
+                                    <div class="input">
+                                        <span class="fa fa-id-card" aria-hidden="true"></span>
+                                        <input type="number" placeholder="Student ID" name="id" required />
+                                    </div>
+                                </div>
+
+                                <div class="col-md-3" style="padding-left:0px;padding-right:0px">
+                                    <div class="input">
+                                        <span class="fa fa-university" aria-hidden="true"></span>
+                                        <input type="text" placeholder="Dept" name="dept" required />
+                                    </div>
+                                </div>
+                                <div class="col-md-3" style="padding-left:0px;padding-right:0px">
+                                    <div class="input">
+                                        <span class="fa fa-calendar" aria-hidden="true"></span>
+                                        <input type="number" placeholder="Enrolment Year" name="enr_year" required />
+                                    </div>
+                                </div>
+                                <div class="col-md-6" style="padding-left:0px;padding-right:0px">
+                                    <div class="input">
+                                        <span class="fa fa-envelope-o" aria-hidden="true"></span>
+                                        <input type="email" placeholder="Email" name="mail" required />
+                                    </div>
+                                </div>
+                                <div class="col-md-4" style="padding-left:0px;padding-right:0px">
+                                    <div class="input">
+                                        <span class="fa fa-key" aria-hidden="true"></span>
+                                        <input type="password" placeholder="Password" name="pass" required />
+                                    </div>
+                                </div>
+                                <div class="col-md-4" style="padding-left:0px;padding-right:0px">
+                                    <div class="input">
+                                        <span class="fa fa-key" aria-hidden="true"></span>
+                                        <input type="password" placeholder="Repeat password" name="password2" required />
+                                    </div>
+                                </div>
+                                <div class="col-md-4" style="padding-left:0px;padding-right:0px">
+                                    <div class="input">
+                                        <span class="fa fa-image" aria-hidden="true"></span>
+                                        <input style="cursor:pointer;" type="button" name="load" value="Upload img(op)" onclick="document.getElementById('imgFile').click()" />
+                                        <input type="file" style="display:none;" name="img" id="imgFile" placeholder="Upload img" />
+                                    </div>
+                                </div>
+                                <button type="submit" class="btn submit">Register</button>
+
+
                             </div>
-                            <div class="input">
-                                <span class="fa fa-key" aria-hidden="true"></span>
-                                <input type="password" placeholder="Password" name="password" required />
-                            </div>
-                            <div class="input">
-                                <span class="fa fa-key" aria-hidden="true"></span>
-                                <input type="password" placeholder="Confirm Password" name="password2" required />
-                            </div>
-                            <button type="submit" class="btn submit">Register</button>
                         </form>
                     </article>
                 </div>
@@ -106,7 +161,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                             </p>
                             <div class="input">
                                 <span class="fa fa-envelope-o" aria-hidden="true"></span>
-                                <input type="email" placeholder="Email" name="email" required />
+                                <input type="email" placeholder="Email" name="mail" required />
                             </div>
                             <button type="submit" class="btn submit last-btn">Reset</button>
                         </form>
@@ -121,8 +176,44 @@ License URL: http://creativecommons.org/licenses/by/3.0/
     </div>
 
 
+    <div class="modal" tabindex="-1" role="dialog" id="notice">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Notice</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p id="text"></p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="~/Content/eiser/js/jquery-3.2.1.min.js"></script>
+    <script src="~/Content/eiser/js/bootstrap.min.js"></script>
+    @{
+        if (TempData["LoginMessage"] != null)
+        {
+            <script>
+            document.getElementById("text").innerHTML = '@TempData["LoginMessage"].ToString()'
+            $("#notice").modal("show");
+            </script>
+
+            TempData["LoginMessage"] = null;
+        }
+    }
+
 </body>
 
+
 </html>
+
+
 
 

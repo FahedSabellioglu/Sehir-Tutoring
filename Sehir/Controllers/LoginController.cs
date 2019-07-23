@@ -2,6 +2,7 @@
 
 namespace Sehir.Controllers
 {
+    using Sehir.App_Classes;
     using System;
     using System.Linq;
     using System.Web;
@@ -38,20 +39,50 @@ namespace Sehir.Controllers
                 }
                 Response.Cookies.Add(ck);
                 FormsAuthentication.RedirectFromLoginPage(Email, true);
-
-
+            }
+            else
+            {
+                TempData["LoginMessage"] = "Failed to Login, Please try again later.";
             }
             return View("Index");
         }
         [HttpPost]
-        public ActionResult Register(string email, string password, string password2)
+        public ActionResult Register(User UserObject)
         {
+            bool Dup_email = cx.Users.Any(x => x.mail == UserObject.mail || x.id == UserObject.id);
+            if (!Dup_email)
+            {
+                if (UserObject.img == null)
+                {
+                    string imgPath = Server.MapPath("~/Content/eiser/img/default_user.jpg");
+                    UserObject.img = System.IO.File.ReadAllBytes(imgPath);
+                }
+
+                cx.Users.Add(UserObject);
+                cx.SaveChanges();
+                TempData["LoginMessage"] = "You have been registered successfully.";
+                return RedirectToAction("Index");
+            }
+            TempData["LoginMessage"] = "Email or Student id are repeated.";
 
             return View("Index");
         }
         [HttpPost]
-        public ActionResult ForgotPassword(string email)
+        public ActionResult ForgotPassword(User usrObject)
         {
+            User usr = cx.Users.FirstOrDefault(x => x.mail == usrObject.mail);
+            if (usr != null)
+            {
+                emailSending emailObject = new emailSending(usr.mail);
+
+                emailObject.ForgotPass(usr.pass);
+                TempData["LoginMessage"] = "An email has been sent to you. Please check you mail box";
+
+            }
+            else
+            {
+                TempData["LoginMessage"] = "This email is not registered in our database";
+            }
             return View("Index");
         }
 

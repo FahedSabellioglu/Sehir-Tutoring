@@ -119,13 +119,13 @@ q {
     quotes: none;
 }
 
-blockquote:before,
-blockquote:after,
-q:before,
-q:after {
-    content: '';
-    content: none;
-}
+    blockquote:before,
+    blockquote:after,
+    q:before,
+    q:after {
+        content: '';
+        content: none;
+    }
 
 table {
     border-collapse: collapse;
@@ -216,8 +216,8 @@ body {
     -o-background-size: cover;
     -ms-background-size: cover;
     min-height: 100vh;
-    width: 100%;
-    height: 100%;
+    width:100%;
+    height:100%;
 }
 
 /* title */
@@ -240,7 +240,7 @@ h1 {
 }
 
 .image-style {
-    background: url(../images/m.jpg) no-repeat center;
+    /* background: url(../images/m.jpg) no-repeat center; */
     background-size: cover;
     -webkit-background-size: cover;
     -moz-background-size: cover;
@@ -261,7 +261,7 @@ h1 {
 
 .image-style {
     float: left;
-    width: 25%;
+    width: 10%;
 }
 
 .vertical-tab input[name="sections"] {
@@ -274,26 +274,36 @@ h1 {
     display: block;
 }
 
-.vertical-tab .section-w3ls label {
-    background: #fff;
-    border-right: 1px solid #dcdcdc;
-    cursor: pointer;
-    display: block;
-    font-size: 17px;
-    padding: 33px 20px;
-    width: 189px;
-    z-index: 100;
-    color: #111;
-    text-align: center;
+    .vertical-tab .section-w3ls label {
+        background: #fff;
+        border-right: 1px solid #dcdcdc;
+        cursor: pointer;
+        display: block;
+        font-size: 17px;
+        padding: 33px 20px;
+        position: relative;
+        width: 189px;
+        z-index: 100;
+        color: #111;
+        text-align: center;
+    }
+
+    .vertical-tab .section-w3ls article {
+        display: none;
+        left: 189px;
+        min-width: 570px;
+        position: absolute;
+        top: 0;
+    }
+
+
+.vertical-tab .section-w3ls_req article {
+
+    min-width: 845px;
+
 }
 
-.vertical-tab .section-w3ls article {
-    display: none;
-    left: 230px;
-    min-width: 570px;
-    position: absolute;
-    top: 0;
-}
+
 
 /* .vertical-tab .section-w3ls article:after {
     background-color: #fff;
@@ -307,14 +317,20 @@ h1 {
     z-index: 1;
 } */
 
-.vertical-tab input[name="sections"]:checked+label {
+.vertical-tab input[name="sections"]:checked + label {
     background: #00ad45;
     border-right: 1px solid #000;
     color: #fff;
 }
 
-.vertical-tab input[name="sections"]:checked~article {
+.vertical-tab input[name="sections"]:checked ~ article {
     display: block;
+}
+
+
+.special_form{
+    margin-left:0px;
+    margin-right:1px;
 }
 
 label.icon-left-w3pvt span {
@@ -353,12 +369,17 @@ p.para-style-2 {
     margin-bottom: 2em;
 }
 
-p.para-style-2 a {
-    color: blue;
+    p.para-style-2 a {
+        color: blue;
+    }
+
+.column_special{
+    padding-left:0px;
+    padding-right:0px;
 }
 
 .input {
-    margin-bottom: 1em;
+    margin-bottom: 8px;
     padding: 13px 15px;
     border: 1px solid #eee;
     background: #eee;
@@ -368,24 +389,25 @@ p.para-style-2 a {
     -webkit-box-align: center;
     -ms-flex-align: center;
     align-items: center;
+    margin-right:5px;
 }
 
-.input span {
-    font-size: 15px;
-    color: #464646;
-    margin-right: 10px;
-}
+    .input span {
+        font-size: 15px;
+        color: #464646;
+        margin-right: 10px;
+    }
 
-.input input {
-    color: #000;
-    font-size: 14px;
-    letter-spacing: 1px;
-    box-sizing: border-box;
-    border: none;
-    outline: none;
-    background: transparent;
-    width: 100%;
-}
+    .input input {
+        color: #000;
+        font-size: 14px;
+        letter-spacing: 1px;
+        box-sizing: border-box;
+        border: none;
+        outline: none;
+        background: transparent;
+        width: 100%;
+    }
 
 .submit {
     margin: 2.3em auto 0;
@@ -411,14 +433,14 @@ p.para-style-2 a {
     width: 100%;
 }
 
-.submit:hover {
-    opacity: .8;
-    -webkit-transition: 0.5s all;
-    -o-transition: 0.5s all;
-    -moz-transition: 0.5s all;
-    -ms-transition: 0.5s all;
-    transition: 0.5s all;
-}
+    .submit:hover {
+        opacity: .8;
+        -webkit-transition: 0.5s all;
+        -o-transition: 0.5s all;
+        -moz-transition: 0.5s all;
+        -ms-transition: 0.5s all;
+        transition: 0.5s all;
+    }
 
 a.bottom-text-w3ls {
     color: #757474;
@@ -437,32 +459,34 @@ a.bottom-text-w3ls {
     padding-bottom: 1.5vw;
 }
 
-.copyright h2 {
-    font-size: 15px;
-    color: #fff;
-    letter-spacing: 1px;
-    text-align: center;
-    line-height: 1.8;
-}
+    .copyright h2 {
+        font-size: 15px;
+        color: #fff;
+        letter-spacing: 1px;
+        text-align: center;
+        line-height: 1.8;
+    }
 
-.copyright h2 a {
-    color: #fff;
-    font-weight: bold;
-    -webkit-transition: 0.5s all;
-    -o-transition: 0.5s all;
-    -moz-transition: 0.5s all;
-    -ms-transition: 0.5s all;
-    transition: 0.5s all;
-}
+        .copyright h2 a {
+            color: #fff;
+            font-weight: bold;
+            -webkit-transition: 0.5s all;
+            -o-transition: 0.5s all;
+            -moz-transition: 0.5s all;
+            -ms-transition: 0.5s all;
+            transition: 0.5s all;
+        }
 
-.copyright h2 a:hover {
-    opacity: .8;
-    -webkit-transition: 0.5s all;
-    -o-transition: 0.5s all;
-    -moz-transition: 0.5s all;
-    -ms-transition: 0.5s all;
-    transition: 0.5s all;
-}
+
+
+            .copyright h2 a:hover {
+                opacity: .8;
+                -webkit-transition: 0.5s all;
+                -o-transition: 0.5s all;
+                -moz-transition: 0.5s all;
+                -ms-transition: 0.5s all;
+                transition: 0.5s all;
+            }
 
 /* //copyright */
 
@@ -577,6 +601,10 @@ a.bottom-text-w3ls {
         left: 109px;
     }
 
+    .registeration_form {
+        min-width: 320px;
+    }
+
     .vertical-tab .section-w3ls label {
         width: 89px;
         font-size: 14px;
@@ -647,7 +675,7 @@ a.bottom-text-w3ls {
         border-top: 1px solid #dcdcdc;
     }
 
-    .vertical-tab input[name="sections"]:checked+label {
+    .vertical-tab input[name="sections"]:checked + label {
         border-right: none;
         border-bottom: 1px solid #000;
         border-top: none;
@@ -677,7 +705,6 @@ a.bottom-text-w3ls {
     p.para-style-2 {
         margin-bottom: 2em;
     }
-
 }
 
 @media(max-width: 320px) {
