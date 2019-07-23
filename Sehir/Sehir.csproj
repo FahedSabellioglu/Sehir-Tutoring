@@ -493,6 +493,7 @@
     <Content Include="Content\eiser\vendors\owl-carousel\assets\owl.carousel.css" />
     <Content Include="Content\eiser\vendors\owl-carousel\owl.carousel.min.css" />
     <Content Include="Content\eiser\vendors\owl-carousel\owl.carousel.min.js" />
+    <Content Include="Content\Error\css\style.css" />
     <Content Include="Content\PagedList.css" />
     <Content Include="Content\web\css\font-awesome.min.css" />
     <Content Include="Content\web\css\style.css" />
@@ -675,7 +676,6 @@
     </Content>
     <Content Include="Views\Shared\Details.cshtml" />
     <Content Include="Views\Courses\Index.cshtml" />
-    <Content Include="Views\Shared\UserOfferPopup.cshtml" />
     <Content Include="Views\Shared\Offer.cshtml" />
     <None Include="Web.Debug.Config">
       <DependentUpon>Web.Config</DependentUpon>
