@@ -1,0 +1,168 @@
+﻿
+@{
+    ViewBag.Title = "RequestsDetails";
+}
+
+    <div class="product_image_area">
+        <div class="container">
+            <div class="row s_product_inner">
+                <div class="col-lg-6">
+
+                    <div class="s_product_img">
+                        <div id="carouselExampleIndicators"
+                             class="carousel slide"
+                             data-ride="carousel">
+                            <div class="carousel-inner">
+                                <div class="carousel-item active">
+                                    @{
+                                        var imgSrc = "";
+                                        if (Model.LecImg != null)
+                                        {
+                                            var Imgbase64 = Convert.ToBase64String(Model.LecImg);
+                                            imgSrc = String.Format("data:image/jpg;base64,{0}", Imgbase64);
+                                        }
+                                        else
+                                        {
+                                            imgSrc = "/Content/eiser/img/no-image.jpg";
+                                        }
+
+                                    }
+                                    <img class="d-block w-100"
+                                         src="@imgSrc"
+                                         alt="Item Image"  height="360" width="540" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <section class="blog_area single-post-area">
+                        <div class="posts-list">
+                            @{
+                                var imgB64 = Convert.ToBase64String(Model.UsrImg);
+                                var imsrc = String.Format("data:image/jpg;base64,{0}", imgB64);
+                            }
+                            <div class="blog-author">
+                                <div class="media align-items-center">
+                                    <img src="@imsrc" alt="">
+                                    <div class="media-body s_product_text">
+                                        <a href="#">
+                                            <h4>@Model.U_name @Model.U_Surname</h4>
+                                        </a>
+                                        <ul class="list">
+                                            <li>
+                                                <a class="active" href="#">
+                                                    <span>Enrolment Year</span> : @Model.enr_year
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a class="active" href="#">
+                                                    <span>Dept</span> : @Model.dept
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                    <br/>
+                </div>
+                <div class="col-lg-5 offset-lg-1">
+                    <div class="s_product_text">
+                        @if (ViewBag.ActionName == "Courses")
+                        {
+                            <h3 id="cname">@Model.C_Name</h3>
+
+                        }
+                        else if (ViewBag.ActionName=="Homework")
+                        {
+                            <h3 id="cname">@Model.title</h3>
+
+                        }
+                        <h2>@Model.price TL</h2>
+                        <ul class="list">
+                            <li>
+                                <a class="active" href="#">
+                                    <span>Course Code</span> : @Model.C_Code
+                                </a>
+                            </li>
+                            @if (ViewBag.ActionName == "Homework")
+                            {
+                                <li>
+                                    <a class="active" href="#">
+                                        <span>Course title</span> : @Model.C_Name
+                                    </a>
+                                </li>
+                            }
+                            <li>
+                                <a class="active" href="#">
+                                    <span>Dept</span> : @Model.C_dept
+                                </a>
+                            </li>
+
+                        </ul>
+                        <p>
+                            <span class="text-monospa.ce">
+                                Description:
+                                @Model.descrip
+                            </span>
+
+                        </p>
+
+                        <div class="card_area">
+
+                            <a class="icon_btn fa fa-download" href='@Url.Action("Downlaod","Admin",new {ID=Model.ID })' style="font-size:18px"></a>
+
+                            @if (ViewBag.ActionName == "Courses")
+                            {
+                                <a class="icon_btn fa fa-check" href='@Url.Action("CourseApproval",new {ID=Model.ID, C_Code=Model.C_Code })' style="font-size:18px"></a>
+
+
+                                <a class="icon_btn fa fa-close" href='@Url.Action("CourseDeletion",new { ID=Model.ID, C_Code=Model.C_Code })' style="font-size:18px"></a>
+                            }
+
+
+                            else if (ViewBag.ActionName == "Homework")
+                            {
+                                <a class="icon_btn fa fa-check" href='@Url.Action("HomeworkApproval",new {ID=Model.ID, C_Code=Model.C_Code,title =Model.title})' style="font-size:18px"></a>
+
+
+                                <a class="icon_btn fa fa-close" href='@Url.Action("HwDeletion",new { ID=Model.ID, C_Code=Model.C_Code,title =Model.title })' style="font-size:18px"></a>
+
+
+                            }
+
+
+
+                        </div>
+
+                        <div class="modal " id="Request" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel"></h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <form>
+
+                                            <div class="form-group">
+                                                <label for="message-text" class="col-form-label">Would you like to leave a note? (optional)</label>
+                                                <textarea class="form-control" id="message-text"></textarea>
+                                            </div>
+                                        </form>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                        <button type="button" class="btn btn-primary YES">Send</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>

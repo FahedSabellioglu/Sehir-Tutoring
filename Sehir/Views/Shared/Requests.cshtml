@@ -1,0 +1,150 @@
+﻿
+@{
+    //ViewBag.Title = "Requests";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+}
+
+@using PagedList;
+@using PagedList.Mvc;
+
+<section class="banner_area">
+    <div class="banner_inner d-flex align-items-center">
+        <div class="container">
+            <div class="banner_content d-md-flex justify-content-between align-items-center">
+                <div class="mb-3 mb-md-0">
+                    <h2>@ViewBag.Title</h2>
+                </div>
+                <div class="page_link">
+                    <a href="/Home/Main">Home</a>
+                    <a href="/Admin/@ViewBag.ActionName">@ViewBag.PageName</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="cat_product_area section_gap">
+    <div class="container">
+        <div class="row flex-row-reverse">
+
+            <div class="col-lg-9">
+                <div class="product_top_bar">
+                    <div class="left_dorp">
+                        <select class="sorting" style="display: none;">
+                            <option value="1">ascending</option>
+                            <option value="2">Descending</option>
+                        </select>
+                        <div class="nice-select sorting" tabindex="0">
+                            <span class="current">No Sorting</span>
+                            <ul class="list">
+                                <li data-value="2" class="option focus">ascending</li>
+                                <li data-value="4" class="option selected">Descending</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="latest_product_inner">
+                    <div class="row">
+                        @RenderSection("Items", true);
+                    </div>
+
+                    @RenderSection("PageList",true)
+
+                </div>
+
+                <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Delete window</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body" id="popup">
+                                ...
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary No-button" data-dismiss="modal" id="no1">No</button>
+                                <button type="button" class="btn btn-success Yes-button" id="YES">Yes</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3">
+                <div class="left_sidebar_area">
+                    <aside class="left_widgets p_filter_widgets">
+                        <div class="l_w_title">
+                            <h3>Name</h3>
+                        </div>
+                        <div class="widgets_inner">
+                            <ul class="list">
+                                @foreach (string HomeworkName in ViewBag.Names)
+                                {
+                                    <li>
+                                        <a href="#">@HomeworkName</a>
+                                    </li>
+                                }
+                            </ul>
+                        </div>
+                    </aside>
+
+                    <aside class="left_widgets p_filter_widgets">
+                        <div class="l_w_title">
+                            <h3>Depertment</h3>
+                        </div>
+                        <div class="widgets_inner">
+                            <ul class="list">
+                                @foreach (string d_name in ViewBag.Deps)
+                                {
+                                    <li>
+                                        <a href="#">@d_name</a>
+                                    </li>
+
+                                }
+                            </ul>
+                        </div>
+                    </aside>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<div class="modal" tabindex="-1" role="dialog" id="notice">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Notice</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p id="text"></p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts{
+
+    @if (ViewBag.message != null)
+    {
+        <script>
+            document.getElementById("text").innerHTML = "@ViewBag.message";
+            $("#notice").modal("show");
+        </script>
+
+        ViewBag.message = null;
+    }
+
+}
+
+
