@@ -68,9 +68,14 @@
                                                     <a class="nav-link" href="/Courses/Index/1">My Courses</a>
                                                 </li>
                                             }
-                                            <li class="nav-item">
-                                                <a class="nav-link offer" href='@Url.Action("CourseOfferPage","Courses",new {mail=User.Identity.Name })'>Offer a course</a>
-                                            </li>
+
+                                            @if (User.IsInRole("User,Lecturer,HomeworkMaker"))
+                                            {
+                                                <li class="nav-item">
+                                                    <a class="nav-link offer" href='@Url.Action("CourseOfferPage","Courses",new {mail=User.Identity.Name })'>Offer a course</a>
+                                                </li>
+                                            }
+
                                         </ul>
                                     </li>
 
@@ -86,9 +91,14 @@
                                                     <a class="nav-link" href="/Homework/Index/1">My Homeworks</a>
                                                 </li>
                                             }
-                                            <li class="nav-item">
-                                                <a class="nav-link" href='@Url.Action("HomeworkOfferPage","Homework",new {mail=User.Identity.Name })'>Offer a Homework</a>
-                                            </li>
+
+                                            @if (User.IsInRole("User,Lecturer,HomeworkMaker"))
+                                            {
+                                                <li class="nav-item">
+                                                    <a class="nav-link" href='@Url.Action("HomeworkOfferPage","Homework",new {mail=User.Identity.Name })'>Offer a Homework</a>
+                                                </li>
+                                            }
+
                                         </ul>
                                     </li>
 
@@ -98,9 +108,19 @@
                                     @if (User.IsInRole("Admin"))
 
                                     {
-                                        <li class="nav-item">
-                                            <a class="nav-link" href='@Url.Action("/Admin/PendingRequest")'>Offer Requests</a>
+                                        <li class="nav-item submenu dropdown">
+                                            <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Requests</a>
+                                            <ul class="dropdown-menu">
+                                                <li class="nav-item">
+                                                    <a class="nav-link" href='@Url.Action("HomeworksPending","Admin")'>Homework</a>
+                                                </li>
+
+                                                <li class="nav-item">
+                                                    <a class="nav-link" href='@Url.Action("PendingRequest","Admin")'>Courses</a>
+                                                </li>
+                                            </ul>
                                         </li>
+
                                     }
 
 
