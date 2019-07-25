@@ -4,18 +4,18 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="9d933551644a45afb0eb1c1be331f292" Name="Diagram1" ZoomLevel="10">
-        <EntityTypeShape EntityType="SehirTutoringModel.AdminTable" Width="1.5" PointX="3" PointY="13.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="SehirTutoringModel.C_feedBack" Width="1.5" PointX="3" PointY="10.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="SehirTutoringModel.Course" Width="1.5" PointX="1.5" PointY="6.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="SehirTutoringModel.CourseRequest" Width="1.5" PointX="3" PointY="16.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="SehirTutoringModel.H_feedBack" Width="1.5" PointX="6" PointY="13.25" IsExpanded="true" />
+      <Diagram DiagramId="e207d9624c0b45bb96eca1253f9e19bc" Name="Diagram1">
+        <EntityTypeShape EntityType="SehirTutoringModel.AdminTable" Width="1.5" PointX="3" PointY="13.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SehirTutoringModel.C_feedBack" Width="1.5" PointX="3" PointY="10.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="SehirTutoringModel.Course" Width="1.5" PointX="1.5" PointY="6.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="SehirTutoringModel.CourseRequest" Width="1.5" PointX="3" PointY="16.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="SehirTutoringModel.H_feedBack" Width="1.5" PointX="6" PointY="13.125" IsExpanded="true" />
         <EntityTypeShape EntityType="SehirTutoringModel.Homework" Width="1.5" PointX="3.75" PointY="6.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="SehirTutoringModel.homework_request" Width="1.5" PointX="6" PointY="9.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="SehirTutoringModel.HomeworkMaker" Width="1.5" PointX="6" PointY="17.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="SehirTutoringModel.HomeworkRequest" Width="1.5" PointX="8.25" PointY="16.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="SehirTutoringModel.homework_request" Width="1.5" PointX="6" PointY="9" IsExpanded="true" />
+        <EntityTypeShape EntityType="SehirTutoringModel.HomeworkMaker" Width="1.5" PointX="6" PointY="17" IsExpanded="true" />
+        <EntityTypeShape EntityType="SehirTutoringModel.HomeworkRequest" Width="1.5" PointX="8.25" PointY="16.75" IsExpanded="true" />
         <EntityTypeShape EntityType="SehirTutoringModel.lec_request" Width="1.5" PointX="9" PointY="13.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="SehirTutoringModel.Lecturer" Width="1.5" PointX="9" PointY="9.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="SehirTutoringModel.Lecturer" Width="1.5" PointX="9" PointY="9" IsExpanded="true" />
         <EntityTypeShape EntityType="SehirTutoringModel.User" Width="1.5" PointX="0.75" PointY="12.25" IsExpanded="true" />
         <AssociationConnector Association="SehirTutoringModel.FK__AdminTable__ID__75A278F5" ManuallyRouted="false" />
         <AssociationConnector Association="SehirTutoringModel.FK__C_feedBack__45F365D3" ManuallyRouted="false" />

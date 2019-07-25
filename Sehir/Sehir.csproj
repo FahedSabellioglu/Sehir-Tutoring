@@ -511,6 +511,7 @@
     <Compile Include="App_Classes\CustomRoleProvider.cs" />
     <Compile Include="App_Classes\emailSending.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\CoursesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\HomeworkController.cs" />
@@ -519,6 +520,9 @@
       <DependentUpon>SehirEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="CourseRequest.cs">
+      <DependentUpon>SehirEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="CourseRequestsPending_Result.cs">
       <DependentUpon>SehirEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="CoursesFeedBacks_Result.cs">
@@ -549,6 +553,9 @@
       <DependentUpon>SehirEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="HomeworkRequest.cs">
+      <DependentUpon>SehirEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="HomeworksRequestsPending_Result.cs">
       <DependentUpon>SehirEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="homework_request.cs">
@@ -667,6 +674,10 @@
     <Content Include="Views\Login\Index.cshtml" />
     <Content Include="Web.Config" />
     <Content Include="Views\Shared\Feedback.cshtml" />
+    <Content Include="Views\Shared\Details.cshtml" />
+    <Content Include="Views\Courses\Index.cshtml" />
+    <Content Include="Views\Shared\Offer.cshtml" />
+    <Content Include="Views\Admin\PendingCourses.cshtml" />
     <EntityDeploy Include="SehirEntities.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>SehirEntities.Designer.cs</LastGenOutput>
@@ -674,9 +685,9 @@
     <Content Include="SehirEntities.edmx.diagram">
       <DependentUpon>SehirEntities.edmx</DependentUpon>
     </Content>
-    <Content Include="Views\Shared\Details.cshtml" />
-    <Content Include="Views\Courses\Index.cshtml" />
-    <Content Include="Views\Shared\Offer.cshtml" />
+    <Content Include="Views\Shared\Requests.cshtml" />
+    <Content Include="Views\Admin\HomeworksPending.cshtml" />
+    <Content Include="Views\Shared\RequestsDetails.cshtml" />
     <None Include="Web.Debug.Config">
       <DependentUpon>Web.Config</DependentUpon>
     </None>

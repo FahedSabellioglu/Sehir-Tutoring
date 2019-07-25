@@ -117,7 +117,6 @@
           <Property Name="C_Code" Type="varchar" MaxLength="20" Nullable="false" />
           <Property Name="descrip" Type="varchar(max)" />
           <Property Name="img" Type="varbinary(max)" />
-          <Property Name="adminstate" Type="varchar(max)" />
           <Property Name="price" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="Lecturer">
@@ -403,6 +402,10 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Function Name="CourseRequestsPending" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+          <Parameter Name="Code" Type="varchar" Mode="In" />
+        </Function>
         <Function Name="CoursesFeedBacks" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="T_ID" Type="int" Mode="In" />
           <Parameter Name="Code" Type="varchar" Mode="In" />
@@ -422,6 +425,11 @@
         <Function Name="HomeworkList" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
           <Parameter Name="belongs" Type="bit" Mode="In" />
+        </Function>
+        <Function Name="HomeworksRequestsPending" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+          <Parameter Name="Code" Type="varchar" Mode="In" />
+          <Parameter Name="title" Type="varchar" Mode="In" />
         </Function>
         <Function Name="UserCourseInfo" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
@@ -658,7 +666,6 @@
           <Property Name="C_Code" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="descrip" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="img" Type="Binary" MaxLength="Max" FixedLength="false" />
-          <Property Name="adminstate" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="price" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Course" Relationship="Self.FK__lec_reque__C_Cod__3E52440B" FromRole="lec_request" ToRole="Course" />
           <NavigationProperty Name="User" Relationship="Self.FK__lec_request__ID__3D5E1FD2" FromRole="lec_request" ToRole="Users" />
@@ -1044,6 +1051,10 @@
             <End Role="Users" EntitySet="Users" />
             <End Role="Lecturer" EntitySet="Lecturers" />
           </AssociationSet>
+          <FunctionImport Name="CourseRequestsPending" ReturnType="Collection(SehirTutoringModel.CourseRequestsPending_Result)">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+            <Parameter Name="Code" Mode="In" Type="String" />
+          </FunctionImport>
           <FunctionImport Name="CoursesFeedBacks" ReturnType="Collection(SehirTutoringModel.CoursesFeedBacks_Result)">
             <Parameter Name="T_ID" Mode="In" Type="Int32" />
             <Parameter Name="Code" Mode="In" Type="String" />
@@ -1051,6 +1062,14 @@
           <FunctionImport Name="CoursesList" ReturnType="Collection(SehirTutoringModel.CoursesList_Result)">
             <Parameter Name="id" Mode="In" Type="Int32" />
             <Parameter Name="belongs" Mode="In" Type="Boolean" />
+          </FunctionImport>
+          <FunctionImport Name="CoursesOffer" ReturnType="Collection(SehirTutoringModel.CoursesOffer_Result)">
+          <Parameter Name="id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="HomeworkFeedBacks" ReturnType="Collection(SehirTutoringModel.HomeworkFeedBacks_Result)">
+            <Parameter Name="T_ID" Mode="In" Type="Int32" />
+            <Parameter Name="Code" Mode="In" Type="String" />
+            <Parameter Name="title" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="HomeworkList" ReturnType="Collection(SehirTutoringModel.HomeworkList_Result)">
             <Parameter Name="id" Mode="In" Type="Int32" />
@@ -1060,59 +1079,71 @@
             <Parameter Name="id" Mode="In" Type="Int32" />
             <Parameter Name="C_Code" Mode="In" Type="String" />
           </FunctionImport>
-          <FunctionImport Name="UserRoles" ReturnType="Collection(String)">
-          <Parameter Name="id" Mode="In" Type="Int32" />
-          </FunctionImport>
           <FunctionImport Name="UserHomeworkInfo" ReturnType="Collection(SehirTutoringModel.UserHomeworkInfo_Result)">
             <Parameter Name="id" Mode="In" Type="Int32" />
             <Parameter Name="title" Mode="In" Type="String" />
             <Parameter Name="Code" Mode="In" Type="String" />
           </FunctionImport>
-          <FunctionImport Name="HomeworkFeedBacks" ReturnType="Collection(SehirTutoringModel.HomeworkFeedBacks_Result)">
-            <Parameter Name="T_ID" Mode="In" Type="Int32" />
+          <FunctionImport Name="UserRoles" ReturnType="Collection(String)">
+          <Parameter Name="id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="HomeworksRequestsPending" ReturnType="Collection(SehirTutoringModel.HomeworksRequestsPending_Result)">
+            <Parameter Name="id" Mode="In" Type="Int32" />
             <Parameter Name="Code" Mode="In" Type="String" />
             <Parameter Name="title" Mode="In" Type="String" />
           </FunctionImport>
-          <FunctionImport Name="CoursesOffer" ReturnType="Collection(SehirTutoringModel.CoursesOffer_Result)">
-            <Parameter Name="id" Mode="In" Type="Int32" />
-          </FunctionImport>
         </EntityContainer>
+        <ComplexType Name="CourseRequestsPending_Result">
+          <Property Type="Int32" Name="ID" Nullable="false" />
+          <Property Type="String" Name="C_Code" Nullable="false" MaxLength="20" />
+          <Property Type="String" Name="descrip" Nullable="true" />
+          <Property Type="Binary" Name="LecImg" Nullable="true" />
+          <Property Type="Binary" Name="UsrImg" Nullable="true" />
+          <Property Type="Int32" Name="price" Nullable="false" />
+          <Property Type="String" Name="U_name" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="U_Surname" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="dept" Nullable="false" MaxLength="20" />
+          <Property Type="Int32" Name="enr_year" Nullable="false" />
+          <Property Type="String" Name="mail" Nullable="false" MaxLength="50" />
+          <Property Type="Binary" Name="transcript" Nullable="true" />
+          <Property Type="String" Name="C_Name" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="C_dept" Nullable="true" MaxLength="20" />
+        </ComplexType>
         <ComplexType Name="CoursesFeedBacks_Result">
           <Property Type="Int32" Name="T_ID" Nullable="false" />
           <Property Type="String" Name="review" Nullable="false" />
           <Property Type="String" Name="C_Code" Nullable="false" MaxLength="20" />
           <Property Type="String" Name="C_Name" Nullable="true" MaxLength="50" />
           <Property Type="DateTime" Name="reviewDate" Nullable="false" Precision="23" />
+          <Property Type="String" Name="U_name" Nullable="true" MaxLength="50" />
           <Property Type="String" Name="U_Surname" Nullable="true" MaxLength="50" />
           <Property Type="Binary" Name="img" Nullable="true" />
-          <Property Type="String" Name="U_name" Nullable="true" MaxLength="50" />
         </ComplexType>
         <ComplexType Name="CoursesList_Result">
           <Property Type="Int32" Name="ID" Nullable="false" />
+          <Property Type="String" Name="U_name" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="U_Surname" Nullable="false" MaxLength="50" />
           <Property Type="String" Name="C_Code" Nullable="false" MaxLength="20" />
           <Property Type="String" Name="descrip" Nullable="true" />
           <Property Type="Binary" Name="img" Nullable="true" />
           <Property Type="Int32" Name="Price" Nullable="true" />
           <Property Type="String" Name="CName" Nullable="true" MaxLength="50" />
-          <Property Type="String" Name="U_name" Nullable="false" MaxLength="50" />
-          <Property Type="String" Name="U_Surname" Nullable="false" MaxLength="50" />
         </ComplexType>
-        <ComplexType Name="UserCourseInfo_Result">
+        <ComplexType Name="CoursesOffer_Result">
+          <Property Type="String" Name="C_Name" Nullable="false" MaxLength="50" />
           <Property Type="String" Name="C_Code" Nullable="false" MaxLength="20" />
-          <Property Type="String" Name="descrip" Nullable="true" />
-          <Property Type="String" Name="C_Name" Nullable="true" MaxLength="50" />
-          <Property Type="String" Name="Hdept" Nullable="true" MaxLength="20" />
-          <Property Type="Int32" Name="H_ID" Nullable="false" />
+          <Property Type="String" Name="dept" Nullable="false" MaxLength="20" />
+        </ComplexType>
+        <ComplexType Name="HomeworkFeedBacks_Result">
+          <Property Type="Int32" Name="S_ID" Nullable="false" />
           <Property Type="Int32" Name="T_ID" Nullable="false" />
-          <Property Type="Int32" Name="enr_year" Nullable="false" />
-          <Property Type="String" Name="title" Nullable="true" MaxLength="50" />
-          <Property Type="Binary" Name="HImg" Nullable="true" />
-          <Property Type="Int32" Name="price" Nullable="true" />
+          <Property Type="String" Name="title" Nullable="false" MaxLength="255" />
+          <Property Type="DateTime" Name="reviewDate" Nullable="false" Precision="23" />
+          <Property Type="String" Name="review" Nullable="false" />
           <Property Type="String" Name="U_name" Nullable="false" MaxLength="50" />
           <Property Type="String" Name="U_Surname" Nullable="false" MaxLength="50" />
-          <Property Type="Binary" Name="UsrImg" Nullable="true" />
-          <Property Type="String" Name="Udept" Nullable="false" MaxLength="20" />
-          <Property Type="String" Name="mail" Nullable="false" MaxLength="50" />
+          <Property Type="Binary" Name="img" Nullable="true" />
+          <Property Type="String" Name="C_Code" Nullable="false" MaxLength="20" />
         </ComplexType>
         <ComplexType Name="HomeworkList_Result">
           <Property Type="Int32" Name="ID" Nullable="false" />
@@ -1124,9 +1155,29 @@
           <Property Type="String" Name="U_name" Nullable="false" MaxLength="50" />
           <Property Type="String" Name="U_Surname" Nullable="false" MaxLength="50" />
         </ComplexType>
-        <ComplexType Name="UserHomeworkInfo_Result">
+        <ComplexType Name="UserCourseInfo_Result">
+          <Property Type="String" Name="mail" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="Hdept" Nullable="true" MaxLength="20" />
           <Property Type="Int32" Name="H_ID" Nullable="false" />
           <Property Type="Int32" Name="T_ID" Nullable="false" />
+          <Property Type="Int32" Name="enr_year" Nullable="false" />
+          <Property Type="String" Name="title" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="C_Code" Nullable="false" MaxLength="20" />
+          <Property Type="Binary" Name="HImg" Nullable="true" />
+          <Property Type="String" Name="descrip" Nullable="true" />
+          <Property Type="Int32" Name="price" Nullable="true" />
+          <Property Type="String" Name="C_Name" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="U_name" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="U_Surname" Nullable="false" MaxLength="50" />
+          <Property Type="Binary" Name="UsrImg" Nullable="true" />
+          <Property Type="String" Name="Udept" Nullable="false" MaxLength="20" />
+        </ComplexType>
+        <ComplexType Name="UserHomeworkInfo_Result">
+          <Property Type="String" Name="mail" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="Hdept" Nullable="true" MaxLength="20" />
+          <Property Type="Int32" Name="H_ID" Nullable="false" />
+          <Property Type="Int32" Name="T_ID" Nullable="false" />
+          <Property Type="Int32" Name="enr_year" Nullable="false" />
           <Property Type="String" Name="title" Nullable="false" MaxLength="255" />
           <Property Type="String" Name="C_Code" Nullable="false" MaxLength="20" />
           <Property Type="Binary" Name="HImg" Nullable="true" />
@@ -1137,24 +1188,23 @@
           <Property Type="String" Name="U_Surname" Nullable="false" MaxLength="50" />
           <Property Type="Binary" Name="UsrImg" Nullable="true" />
           <Property Type="String" Name="Udept" Nullable="false" MaxLength="20" />
-          <Property Type="Int32" Name="enr_year" Nullable="false" />
-          <Property Type="String" Name="Hdept" Nullable="true" MaxLength="20" />
-          <Property Type="String" Name="mail" Nullable="false" MaxLength="50" />
         </ComplexType>
-        <ComplexType Name="HomeworkFeedBacks_Result">
-          <Property Type="Int32" Name="S_ID" Nullable="false" />
-          <Property Type="Int32" Name="T_ID" Nullable="false" />
-          <Property Type="String" Name="title" Nullable="false" MaxLength="255" />
-          <Property Type="DateTime" Name="reviewDate" Nullable="false" Precision="23" />
-          <Property Type="String" Name="review" Nullable="false" />
+        <ComplexType Name="HomeworksRequestsPending_Result">
+          <Property Type="Int32" Name="ID" Nullable="false" />
+          <Property Type="String" Name="C_Code" Nullable="false" MaxLength="20" />
+          <Property Type="String" Name="descrip" Nullable="true" MaxLength="255" />
+          <Property Type="Binary" Name="LecImg" Nullable="true" />
+          <Property Type="Binary" Name="UsrImg" Nullable="true" />
+          <Property Type="Int32" Name="price" Nullable="false" />
           <Property Type="String" Name="U_name" Nullable="false" MaxLength="50" />
           <Property Type="String" Name="U_Surname" Nullable="false" MaxLength="50" />
-          <Property Type="Binary" Name="img" Nullable="true" />
-        </ComplexType>
-        <ComplexType Name="CoursesOffer_Result">
-          <Property Type="String" Name="C_Name" Nullable="false" MaxLength="50" />
-          <Property Type="String" Name="C_Code" Nullable="false" MaxLength="20" />
           <Property Type="String" Name="dept" Nullable="false" MaxLength="20" />
+          <Property Type="Int32" Name="enr_year" Nullable="false" />
+          <Property Type="String" Name="mail" Nullable="false" MaxLength="50" />
+          <Property Type="Binary" Name="transcript" Nullable="true" />
+          <Property Type="String" Name="C_Name" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="C_dept" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="title" Nullable="false" MaxLength="255" />
         </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
@@ -1264,7 +1314,6 @@
                 <ScalarProperty Name="C_Code" ColumnName="C_Code" />
                 <ScalarProperty Name="descrip" ColumnName="descrip" />
                 <ScalarProperty Name="img" ColumnName="img" />
-                <ScalarProperty Name="adminstate" ColumnName="adminstate" />
                 <ScalarProperty Name="price" ColumnName="price" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -1295,6 +1344,26 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="CourseRequestsPending" FunctionName="SehirTutoringModel.Store.CourseRequestsPending">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="SehirTutoringModel.CourseRequestsPending_Result">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="C_Code" ColumnName="C_Code" />
+                <ScalarProperty Name="descrip" ColumnName="descrip" />
+                <ScalarProperty Name="LecImg" ColumnName="LecImg" />
+                <ScalarProperty Name="UsrImg" ColumnName="UsrImg" />
+                <ScalarProperty Name="price" ColumnName="price" />
+                <ScalarProperty Name="U_name" ColumnName="U_name" />
+                <ScalarProperty Name="U_Surname" ColumnName="U_Surname" />
+                <ScalarProperty Name="dept" ColumnName="dept" />
+                <ScalarProperty Name="enr_year" ColumnName="enr_year" />
+                <ScalarProperty Name="mail" ColumnName="mail" />
+                <ScalarProperty Name="transcript" ColumnName="transcript" />
+                <ScalarProperty Name="C_Name" ColumnName="C_Name" />
+                <ScalarProperty Name="C_dept" ColumnName="C_dept" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="CoursesFeedBacks" FunctionName="SehirTutoringModel.Store.CoursesFeedBacks">
             <ResultMapping>
               <ComplexTypeMapping TypeName="SehirTutoringModel.CoursesFeedBacks_Result">
@@ -1303,9 +1372,9 @@
                 <ScalarProperty Name="C_Code" ColumnName="C_Code" />
                 <ScalarProperty Name="C_Name" ColumnName="C_Name" />
                 <ScalarProperty Name="reviewDate" ColumnName="reviewDate" />
+                <ScalarProperty Name="U_name" ColumnName="U_name" />
                 <ScalarProperty Name="U_Surname" ColumnName="U_Surname" />
                 <ScalarProperty Name="img" ColumnName="img" />
-                <ScalarProperty Name="U_name" ColumnName="U_name" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
@@ -1313,17 +1382,41 @@
             <ResultMapping>
               <ComplexTypeMapping TypeName="SehirTutoringModel.CoursesList_Result">
                 <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="U_name" ColumnName="U_name" />
+                <ScalarProperty Name="U_Surname" ColumnName="U_Surname" />
                 <ScalarProperty Name="C_Code" ColumnName="C_Code" />
                 <ScalarProperty Name="descrip" ColumnName="descrip" />
                 <ScalarProperty Name="img" ColumnName="img" />
                 <ScalarProperty Name="Price" ColumnName="Price" />
                 <ScalarProperty Name="CName" ColumnName="CName" />
-                <ScalarProperty Name="U_name" ColumnName="U_name" />
-                <ScalarProperty Name="U_Surname" ColumnName="U_Surname" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="HomeworkList" FunctionName="SehirTutoringModel.Store.HomeworkList" >
+          <FunctionImportMapping FunctionImportName="CoursesOffer" FunctionName="SehirTutoringModel.Store.CoursesOffer">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="SehirTutoringModel.CoursesOffer_Result">
+                <ScalarProperty Name="C_Name" ColumnName="C_Name" />
+                <ScalarProperty Name="C_Code" ColumnName="C_Code" />
+                <ScalarProperty Name="dept" ColumnName="dept" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="HomeworkFeedBacks" FunctionName="SehirTutoringModel.Store.HomeworkFeedBacks">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="SehirTutoringModel.HomeworkFeedBacks_Result">
+                <ScalarProperty Name="S_ID" ColumnName="S_ID" />
+                <ScalarProperty Name="T_ID" ColumnName="T_ID" />
+                <ScalarProperty Name="title" ColumnName="title" />
+                <ScalarProperty Name="reviewDate" ColumnName="reviewDate" />
+                <ScalarProperty Name="review" ColumnName="review" />
+                <ScalarProperty Name="U_name" ColumnName="U_name" />
+                <ScalarProperty Name="U_Surname" ColumnName="U_Surname" />
+                <ScalarProperty Name="img" ColumnName="img" />
+                <ScalarProperty Name="C_Code" ColumnName="C_Code" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="HomeworkList" FunctionName="SehirTutoringModel.Store.HomeworkList">
             <ResultMapping>
               <ComplexTypeMapping TypeName="SehirTutoringModel.HomeworkList_Result">
                 <ScalarProperty Name="ID" ColumnName="ID" />
@@ -1340,66 +1433,64 @@
           <FunctionImportMapping FunctionImportName="UserCourseInfo" FunctionName="SehirTutoringModel.Store.UserCourseInfo">
             <ResultMapping>
               <ComplexTypeMapping TypeName="SehirTutoringModel.UserCourseInfo_Result">
-                <ScalarProperty Name="C_Code" ColumnName="C_Code" />
-                <ScalarProperty Name="descrip" ColumnName="descrip" />
-                <ScalarProperty Name="C_Name" ColumnName="C_Name" />
+                <ScalarProperty Name="mail" ColumnName="mail" />
                 <ScalarProperty Name="Hdept" ColumnName="Hdept" />
                 <ScalarProperty Name="H_ID" ColumnName="H_ID" />
                 <ScalarProperty Name="T_ID" ColumnName="T_ID" />
                 <ScalarProperty Name="enr_year" ColumnName="enr_year" />
                 <ScalarProperty Name="title" ColumnName="title" />
+                <ScalarProperty Name="C_Code" ColumnName="C_Code" />
                 <ScalarProperty Name="HImg" ColumnName="HImg" />
+                <ScalarProperty Name="descrip" ColumnName="descrip" />
                 <ScalarProperty Name="price" ColumnName="price" />
+                <ScalarProperty Name="C_Name" ColumnName="C_Name" />
                 <ScalarProperty Name="U_name" ColumnName="U_name" />
                 <ScalarProperty Name="U_Surname" ColumnName="U_Surname" />
                 <ScalarProperty Name="UsrImg" ColumnName="UsrImg" />
                 <ScalarProperty Name="Udept" ColumnName="Udept" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="UserHomeworkInfo" FunctionName="SehirTutoringModel.Store.UserHomeworkInfo">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="SehirTutoringModel.UserHomeworkInfo_Result">
                 <ScalarProperty Name="mail" ColumnName="mail" />
+                <ScalarProperty Name="Hdept" ColumnName="Hdept" />
+                <ScalarProperty Name="H_ID" ColumnName="H_ID" />
+                <ScalarProperty Name="T_ID" ColumnName="T_ID" />
+                <ScalarProperty Name="enr_year" ColumnName="enr_year" />
+                <ScalarProperty Name="title" ColumnName="title" />
+                <ScalarProperty Name="C_Code" ColumnName="C_Code" />
+                <ScalarProperty Name="HImg" ColumnName="HImg" />
+                <ScalarProperty Name="descrip" ColumnName="descrip" />
+                <ScalarProperty Name="price" ColumnName="price" />
+                <ScalarProperty Name="C_Name" ColumnName="C_Name" />
+                <ScalarProperty Name="U_name" ColumnName="U_name" />
+                <ScalarProperty Name="U_Surname" ColumnName="U_Surname" />
+                <ScalarProperty Name="UsrImg" ColumnName="UsrImg" />
+                <ScalarProperty Name="Udept" ColumnName="Udept" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="UserRoles" FunctionName="SehirTutoringModel.Store.UserRoles" />
-          <FunctionImportMapping FunctionImportName="UserHomeworkInfo" FunctionName="SehirTutoringModel.Store.UserHomeworkInfo">
+          <FunctionImportMapping FunctionImportName="HomeworksRequestsPending" FunctionName="SehirTutoringModel.Store.HomeworksRequestsPending">
             <ResultMapping>
-              <ComplexTypeMapping TypeName="SehirTutoringModel.UserHomeworkInfo_Result">
-                <ScalarProperty Name="H_ID" ColumnName="H_ID" />
-                <ScalarProperty Name="T_ID" ColumnName="T_ID" />
-                <ScalarProperty Name="title" ColumnName="title" />
+              <ComplexTypeMapping TypeName="SehirTutoringModel.HomeworksRequestsPending_Result">
+                <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="C_Code" ColumnName="C_Code" />
-                <ScalarProperty Name="HImg" ColumnName="HImg" />
                 <ScalarProperty Name="descrip" ColumnName="descrip" />
-                <ScalarProperty Name="price" ColumnName="price" />
-                <ScalarProperty Name="C_Name" ColumnName="C_Name" />
-                <ScalarProperty Name="U_name" ColumnName="U_name" />
-                <ScalarProperty Name="U_Surname" ColumnName="U_Surname" />
+                <ScalarProperty Name="LecImg" ColumnName="LecImg" />
                 <ScalarProperty Name="UsrImg" ColumnName="UsrImg" />
-                <ScalarProperty Name="Udept" ColumnName="Udept" />
-                <ScalarProperty Name="enr_year" ColumnName="enr_year" />
-                <ScalarProperty Name="Hdept" ColumnName="Hdept" />
-                <ScalarProperty Name="mail" ColumnName="mail" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="HomeworkFeedBacks" FunctionName="SehirTutoringModel.Store.HomeworkFeedBacks">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="SehirTutoringModel.HomeworkFeedBacks_Result">
-                <ScalarProperty Name="S_ID" ColumnName="S_ID" />
-                <ScalarProperty Name="T_ID" ColumnName="T_ID" />
-                <ScalarProperty Name="title" ColumnName="title" />
-                <ScalarProperty Name="reviewDate" ColumnName="reviewDate" />
-                <ScalarProperty Name="review" ColumnName="review" />
+                <ScalarProperty Name="price" ColumnName="price" />
                 <ScalarProperty Name="U_name" ColumnName="U_name" />
                 <ScalarProperty Name="U_Surname" ColumnName="U_Surname" />
-                <ScalarProperty Name="img" ColumnName="img" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="CoursesOffer" FunctionName="SehirTutoringModel.Store.CoursesOffer">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="SehirTutoringModel.CoursesOffer_Result">
-                <ScalarProperty Name="C_Name" ColumnName="C_Name" />
-                <ScalarProperty Name="C_Code" ColumnName="C_Code" />
                 <ScalarProperty Name="dept" ColumnName="dept" />
+                <ScalarProperty Name="enr_year" ColumnName="enr_year" />
+                <ScalarProperty Name="mail" ColumnName="mail" />
+                <ScalarProperty Name="transcript" ColumnName="transcript" />
+                <ScalarProperty Name="C_Name" ColumnName="C_Name" />
+                <ScalarProperty Name="C_dept" ColumnName="C_dept" />
+                <ScalarProperty Name="title" ColumnName="title" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>

@@ -5,7 +5,7 @@
     var currenturl = window.location.href[window.location.href.length - 1] == '1' ? '/1' : '';
     var Linkto = $("#d_ajax").data("to");
     var ApiLink = $("#d_ajax").data("link");
-    console.log(Name);
+
     $.ajax({
         type: "POST",
         url: ApiLink,
