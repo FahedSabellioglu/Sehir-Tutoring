@@ -55,7 +55,7 @@
                         {
                             var Imgbase64 = Convert.ToBase64String(K.img);
                             var imgSrc = String.Format("data:image/jpg;base64,{0}", Imgbase64);
-                            <div class="col-lg-4 col-md-6">
+                            <div class="col-lg-4 col-md-6 single_product" data-name="@K.CName">
                                 <div class="single-product">
                                     <div class="product-img">
                                         <img class="card-img" src="@imgSrc" alt="" height="170" width="120">
@@ -138,10 +138,13 @@
                             <ul class="list">
                                 @foreach (string CourseName in ViewBag.CNames)
                                 {
-                                    <li>
-                                        <a href="#">@CourseName</a>
+                                    <li class="BasedOnName">
+                                        <a href="#" class="namefilter">@CourseName</a>
                                     </li>
                                 }
+                                <li>
+                                    <a href="#" class="all">All</a>
+                                </li>
                             </ul>
                         </div>
                     </aside>
@@ -172,8 +175,8 @@
 
     <script src="~/Content/eiser/js/Deletion.js"></script>
     <script src="~/Content/eiser/js/DeletionAjax.js" data-link="/Courses/Delete" data-to="/Courses/Index" id="d_ajax"></script>
-
-
+    <script src="~/Content/eiser/js/filter.js"></script>
+    <script src="~/Content/eiser/js/unfilter.js"></script>
 }
 
 
