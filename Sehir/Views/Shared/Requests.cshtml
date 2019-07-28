@@ -49,7 +49,7 @@
                         @RenderSection("Items", true);
                     </div>
 
-                    @RenderSection("PageList",true)
+                    @RenderSection("PageList", true)
 
                 </div>
 
@@ -83,10 +83,13 @@
                             <ul class="list">
                                 @foreach (string HomeworkName in ViewBag.Names)
                                 {
-                                    <li>
-                                        <a href="#">@HomeworkName</a>
+                                    <li class="BasedOnName">
+                                        <a href="#" class="namefilter">@HomeworkName</a>
                                     </li>
                                 }
+                                <li>
+                                    <a href="#" class="all">All</a>
+                                </li>
                             </ul>
                         </div>
                     </aside>
@@ -144,6 +147,8 @@
 
         ViewBag.message = null;
     }
+    <script src="~/Content/eiser/js/filter.js"></script>
+    <script src="~/Content/eiser/js/unfilter.js"></script>
 
 }
 

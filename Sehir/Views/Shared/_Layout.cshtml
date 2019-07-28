@@ -69,12 +69,11 @@
                                                 </li>
                                             }
 
-                                            @if (User.IsInRole("User,Lecturer,HomeworkMaker"))
-                                            {
-                                                <li class="nav-item">
-                                                    <a class="nav-link offer" href='@Url.Action("CourseOfferPage","Courses",new {mail=User.Identity.Name })'>Offer a course</a>
-                                                </li>
-                                            }
+                                            
+                                            <li class="nav-item">
+                                                <a class="nav-link offer" href='@Url.Action("CourseOfferPage","Courses",new {mail=User.Identity.Name })'>Offer a course</a>
+                                            </li>
+                                            
 
                                         </ul>
                                     </li>
@@ -92,12 +91,11 @@
                                                 </li>
                                             }
 
-                                            @if (User.IsInRole("User,Lecturer,HomeworkMaker"))
-                                            {
-                                                <li class="nav-item">
-                                                    <a class="nav-link" href='@Url.Action("HomeworkOfferPage","Homework",new {mail=User.Identity.Name })'>Offer a Homework</a>
-                                                </li>
-                                            }
+                                            
+                                            <li class="nav-item">
+                                                <a class="nav-link" href='@Url.Action("HomeworkOfferPage","Homework",new {mail=User.Identity.Name })'>Offer a Homework</a>
+                                            </li>
+                                            
 
                                         </ul>
                                     </li>
@@ -116,14 +114,11 @@
                                                 </li>
 
                                                 <li class="nav-item">
-                                                    <a class="nav-link" href='@Url.Action("PendingRequest","Admin")'>Courses</a>
+                                                    <a class="nav-link" href='@Url.Action("PendingCourses","Admin")'>Courses</a>
                                                 </li>
                                             </ul>
                                         </li>
-
                                     }
-
-
 
                                 </ul>
                             </div>

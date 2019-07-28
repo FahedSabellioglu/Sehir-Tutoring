@@ -2,6 +2,15 @@
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
+
+
+    ViewBag.name = "Homeworks";
+    ViewBag.desc = "Homework desc";
+    ViewBag.A_name = "Index";
+    ViewBag.C_name = "Homework";
+
+
+
 }
 
 @using PagedList
@@ -31,54 +40,42 @@
         <div class="row flex-row-reverse">
 
             <div class="col-lg-9">
-                <div class="product_top_bar">
-                    <div class="left_dorp">
-                        <select class="sorting" style="display: none;">
-                            <option value="1">ascending</option>
-                            <option value="2">Descending</option>
-                        </select>
-                        <div class="nice-select sorting" tabindex="0">
-                            <span class="current">No Sorting</span>
-                            <ul class="list">
-                                <li data-value="2" class="option focus">ascending</li>
-                                <li data-value="4" class="option selected">Descending</li>
-                            </ul>
-                        </div>
-                    </div>
+                <div class="product_top_bar" style="padding:2px 20px;">
+                    
                 </div>
 
                 <div class="latest_product_inner">
                     <div class="row">
                         @foreach (HomeworkList_Result K in Model)
                         {
-                            <div class="col-lg-4 col-md-6 single_product" data-name="@K.title" >
+                            <div class="col-lg-4 col-md-6 single_product" data-name="@K.title">
                                 <div class="single-product">
                                     <div class="product-img">
-                                        @{ 
+                                        @{
                                             var Imgbase64 = Convert.ToBase64String(K.img);
                                             var imgSrc = String.Format("data:image/jpg;base64,{0}", Imgbase64);
                                         }
                                         <img class="card-img" src="@imgSrc" alt="" height="170" width="120">
-                                            <div class="price-top">
-                                                <h6>@K.price TL</h6>
-                                            </div>
+                                        <div class="price-top">
+                                            <h6>@K.price TL</h6>
+                                        </div>
 
-                                            <div class="p_icon">
-                                                @if (HttpContext.Current.Request.RequestContext.RouteData.Values["controller"].ToString() == "Homework")
+                                        <div class="p_icon">
+                                            @if (HttpContext.Current.Request.RequestContext.RouteData.Values["controller"].ToString() == "Homework")
+                                            {
+                                                <a href="@Url.Action("Details",new {ID=K.ID,title=K.title, C_Code= K.C_Code })">
+                                                    <i class="ti-eye"></i>
+                                                </a>
+                                                if (Request.Url.ToString()[Request.Url.ToString().Length - 1] != 'x')
                                                 {
-                                                    <a href="@Url.Action("Details",new {ID=K.ID,title=K.title, C_Code= K.C_Code })">
-                                                        <i class="ti-eye"></i>
+                                                    <a class="delete_item" data-code="@K.C_Code" data-name="@K.title" data-usid="@K.ID" data-toggle="modal" data-target="#exampleModal">
+                                                        <i class="ti-trash"></i>
                                                     </a>
-                                                    if (Request.Url.ToString()[Request.Url.ToString().Length - 1] != 'x')
-                                                    {
-                                                        <a class="delete_item" data-code="@K.C_Code" data-name="@K.title" data-usid="@K.ID" data-toggle="modal" data-target="#exampleModal">
-                                                            <i class="ti-trash"></i>
-                                                        </a>
-                                                    }
                                                 }
+                                            }
 
 
-                                            </div>
+                                        </div>
                                     </div>
                                     <div class="product-btm">
                                         <a href="@Url.Action("Details",new {ID=K.ID,title=K.title, C_Code= K.C_Code })" class="d-block">
@@ -161,7 +158,7 @@
                             <h3>Depertment</h3>
                         </div>
                         <div class="widgets_inner">
-                            <ul class="list" >
+                            <ul class="list">
                                 @foreach (string d_name in ViewBag.dept_Names)
                                 {
                                     <li class="BasedOnDept">
@@ -187,5 +184,7 @@
     <script src="~/Content/eiser/js/unfilter.js"></script>
 
 
-   
+
+
+
 }

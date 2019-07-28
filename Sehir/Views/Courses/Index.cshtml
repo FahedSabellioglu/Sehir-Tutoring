@@ -33,20 +33,8 @@
         <div class="row flex-row-reverse">
 
             <div class="col-lg-9">
-                <div class="product_top_bar">
-                    <div class="left_dorp">
-                        <select class="sorting" style="display: none;">
-                            <option value="1">ascending</option>
-                            <option value="2">Descending</option>
-                        </select>
-                        <div class="nice-select sorting" tabindex="0">
-                            <span class="current">No Sorting</span>
-                            <ul class="list">
-                                <li data-value="2" class="option focus">ascending</li>
-                                <li data-value="4" class="option selected">Descending</li>
-                            </ul>
-                        </div>
-                    </div>
+                <div class="product_top_bar" style="padding:2px 20px;">
+                    
                 </div>
 
                 <div class="latest_product_inner">
@@ -91,7 +79,7 @@
 
 
                     <nav>
-                        @Html.PagedListPager(Model, page => Url.Action("Index","Courses", new { page }), new PagedListRenderOptions
+                        @Html.PagedListPager(Model, page => Url.Action("Index", "Courses", new { page }), new PagedListRenderOptions
                         {
 
                         ContainerDivClasses = new[] { "" },
@@ -160,7 +148,6 @@
                                     <li>
                                         <a href="#">@d_name</a>
                                     </li>
-
                                 }
                             </ul>
                         </div>
@@ -172,7 +159,8 @@
 </section>
 
 @section scripts{
-
+    <script src="~/Content/eiser/vendors/nice-select/js/jquery.nice-select.js"></script>
+    <script src="~/Content/eiser/vendors/nice-select/js/jquery.nice-select.min.js"></script>
     <script src="~/Content/eiser/js/Deletion.js"></script>
     <script src="~/Content/eiser/js/DeletionAjax.js" data-link="/Courses/Delete" data-to="/Courses/Index" id="d_ajax"></script>
     <script src="~/Content/eiser/js/filter.js"></script>

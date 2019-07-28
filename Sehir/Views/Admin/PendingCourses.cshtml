@@ -23,7 +23,7 @@
 @section items{
     @foreach (CourseRequestsPending_Result item in Model)
     {
-        <div class="col-lg-4 col-md-6">
+        <div class="col-lg-4 col-md-6 single_product" data-name="@item.C_Name">
             <div class="single-product">
                 <div class="product-img">
                     @{
@@ -52,11 +52,6 @@
                         <a href="@Url.Action("ItemDetails",new {ID=item.ID, C_Code = item.C_Code })">
                             <i class="ti-eye"></i>
                         </a>
-
-
-
-
-
                     </div>
                 </div>
                 <div class="product-btm">
