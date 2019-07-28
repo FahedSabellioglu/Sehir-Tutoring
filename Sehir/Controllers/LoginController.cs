@@ -14,6 +14,12 @@ namespace Sehir.Controllers
         SehirTutoringEntities cx = new SehirTutoringEntities();
         public ActionResult Index()
         {
+            if (TempData["LoginMessage"] !=null)
+            {
+                ViewBag.message = TempData["LoginMessage"].ToString();
+
+            }
+
             return View();
         }
 
@@ -65,7 +71,7 @@ namespace Sehir.Controllers
             }
             TempData["LoginMessage"] = "Email or Student id are repeated.";
 
-            return View("Index");
+            return RedirectToAction("Index");
         }
         [HttpPost]
         public ActionResult ForgotPassword(User usrObject)
@@ -83,7 +89,7 @@ namespace Sehir.Controllers
             {
                 TempData["LoginMessage"] = "This email is not registered in our database";
             }
-            return View("Index");
+            return RedirectToAction("Index");
         }
 
         public ActionResult Logout()
