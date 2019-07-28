@@ -8,7 +8,7 @@ using System.Web.Mvc;
 
 namespace Sehir.Controllers
 {
-    [Authorize(Roles = "Admin,Lecturer,HomeworkMaker")]
+    [Authorize]
     public class HomeController : Controller
     {
         public ActionResult Main()

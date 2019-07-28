@@ -215,12 +215,8 @@
     <script>
 
         $(".CloseButton").click(function () {
-            $("#Notification").removeClass("show");
-            var NotiElement = document.getElementById("Notification")
-            NotiElement.style.display = 'none';
-            NotiElement.setAttribute("aria-hidden", true);
 
-            $(".modal-backdrop").remove();
+            $("#Notification").modal("hide");
         })
 
         $(".main_btn_class").click(function () {
@@ -264,10 +260,7 @@
                  })
                 
             }
-            $("#Request").removeClass("show");
-            var ReqElement = document.getElementById("Request")
-            ReqElement.style.display = 'none';
-            ReqElement.setAttribute("aria-hidden", true);
+            $("#Request").modal("hide");
             $("#Notification").modal("show")
         })
 

@@ -5,7 +5,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using PagedList;
-
+using Sehir.App_Classes;
 
 namespace Sehir.Controllers
 {
@@ -92,12 +92,16 @@ namespace Sehir.Controllers
             LecObject.Price = LecReqObject.price;
             LecObject.img = LecReqObject.img;
 
+            string Message = "Your offer has been accepted for the course" + C_Code;
+            EmailSend(ID, Message, "Offer status Change");
+
+
+
             try
             {
                 cx.lec_request.Remove(LecReqObject);
                 cx.Lecturers.Add(LecObject);
                 cx.SaveChanges();
-
                 TempData["Message"] = "Changes has been saved";
             }
             catch
@@ -106,14 +110,26 @@ namespace Sehir.Controllers
             }
 
             
-            return RedirectToAction("PendingRequest");
+            return RedirectToAction("PendingCourses");
         }
 
+
+        void EmailSend(int ID,string Message,string Subject)
+        {
+            string mail = cx.Users.FirstOrDefault(x => x.id == ID).mail;
+            emailSending MailObject = new emailSending(mail);
+            MailObject.SendProcedure(Message, Subject);
+        }
 
        
         public ActionResult CourseDeletion(int ID, string C_Code)
         {
             lec_request LecReqObject = cx.lec_request.FirstOrDefault(x => x.ID == ID && x.C_Code == C_Code);
+
+
+            string Message = "Your offer has been rejectred for the course " + C_Code;
+            EmailSend(ID, Message, "Offer status Change");
+
             try
             {
                 cx.lec_request.Remove(LecReqObject);
@@ -125,7 +141,7 @@ namespace Sehir.Controllers
                 TempData["Message"] = "Failed to delete the item";
             }
 
-            return RedirectToAction("PendingRequest");
+            return RedirectToAction("PendingCourses");
         }
 
 
@@ -142,6 +158,9 @@ namespace Sehir.Controllers
             HwObject.ID = HwReqObject.ID;
             HwObject.descrip = HwReqObject.descrip;
             HwObject.title = title;
+
+            string Message = "Your offer has been accepted for the homework " + C_Code;
+            EmailSend(ID, Message, "Offer status Change");
 
             try
             {
@@ -165,6 +184,9 @@ namespace Sehir.Controllers
         public ActionResult HwDeletion(int ID, string C_Code, string title)
         {
             homework_request HwReqObject = cx.homework_request.FirstOrDefault(x => x.ID == ID && x.title == title && x.C_Code == C_Code);
+
+            string Message = "Your offer has been rejectred for the homework " + C_Code + "with the title " + title;
+            EmailSend(ID, Message, "Offer status Change");
 
             try
             {

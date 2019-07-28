@@ -24,10 +24,7 @@ namespace Sehir.Controllers
             List<string> Deps = ctx.Courses.OrderBy(x => x.dept).Select(x => x.dept).Distinct().ToList();
             ViewBag.dept_Names = Deps;
 
-            ViewBag.name = "Homeworks";
-            ViewBag.desc = "Homework desc";
-            ViewBag.A_name = "Index";
-            ViewBag.C_name = "Homework";
+
 
             return View(j);
         }
@@ -61,7 +58,9 @@ namespace Sehir.Controllers
         void UserAuth(int id)
         {
             User UsrObject = ctx.Users.FirstOrDefault(x => x.mail == User.Identity.Name);
+
             ViewData["UserObject"] = UsrObject;
+
             ViewBag.check = id != UsrObject.id ? true : false;
 
         }
@@ -70,11 +69,9 @@ namespace Sehir.Controllers
         {
             List<HomeworkFeedBacks_Result> feedbacks = ctx.HomeworkFeedBacks(HWObject.H_ID, HWObject.C_Code, HWObject.title).ToList();
 
-
             User UsrObject = ctx.Users.FirstOrDefault(x => x.mail == User.Identity.Name);
 
             ViewBag.check = HWObject.H_ID != UsrObject.id ? true : false;
-
 
             return PartialView("~/Views/Shared/Feedback.cshtml", feedbacks);
         }
@@ -82,8 +79,11 @@ namespace Sehir.Controllers
         public ActionResult Comment(H_feedBack feedbackObject)
         {
             feedbackObject.S_ID = ctx.Users.FirstOrDefault(x => x.mail == User.Identity.Name).id;
+
             feedbackObject.reviewDate = DateTime.Now;
+
             ctx.H_feedBack.Add(feedbackObject);
+
             ctx.SaveChanges();
 
             return getFeedbacks(feedbackObject);
@@ -128,7 +128,7 @@ namespace Sehir.Controllers
 
             if (ursObject.transcript == null)
             {
-                ViewBag.transcript = false;
+                ViewBag.transcript = true;
             }
 
             ViewBag.Hdata = ctx.HomeworkList(ursObject.id, false).ToList();
@@ -148,7 +148,7 @@ namespace Sehir.Controllers
         {
             try
             {
-                byte[] imageByte = ChangeImgeToArray(img);
+                byte[] imageByte = img != null ? ChangeImgeToArray(img) : null;
 
                 Homework HomeworkObject = new Homework();
 

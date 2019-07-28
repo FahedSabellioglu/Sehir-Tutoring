@@ -449,9 +449,11 @@
     <Content Include="Content\eiser\js\ChainedSelectBoxses.js" />
     <Content Include="Content\eiser\js\CommentAjax.js" />
     <Content Include="Content\eiser\js\contact.js" />
+    <Content Include="Content\eiser\js\Control.js" />
     <Content Include="Content\eiser\js\custom.js" />
     <Content Include="Content\eiser\js\Deletion.js" />
     <Content Include="Content\eiser\js\DeletionAjax.js" />
+    <Content Include="Content\eiser\js\filter.js" />
     <Content Include="Content\eiser\js\gmaps.min.js" />
     <Content Include="Content\eiser\js\jquery-3.2.1.min.js" />
     <Content Include="Content\eiser\js\jquery.ajaxchimp.min.js" />
@@ -464,6 +466,7 @@
     <Content Include="Content\eiser\js\popper.js" />
     <Content Include="Content\eiser\js\stellar.js" />
     <Content Include="Content\eiser\js\theme.js" />
+    <Content Include="Content\eiser\js\unfilter.js" />
     <Content Include="Content\eiser\single-blog.html" />
     <Content Include="Content\eiser\single-product.html" />
     <Content Include="Content\eiser\tracking.html" />
@@ -495,6 +498,7 @@
     <Content Include="Content\eiser\vendors\owl-carousel\owl.carousel.min.js" />
     <Content Include="Content\Error\css\style.css" />
     <Content Include="Content\PagedList.css" />
+    <Content Include="Content\Table\Style.css" />
     <Content Include="Content\web\css\font-awesome.min.css" />
     <Content Include="Content\web\css\style.css" />
     <Content Include="Content\web\fonts\fontawesome-webfont.svg" />
@@ -688,6 +692,7 @@
     <Content Include="Views\Shared\Requests.cshtml" />
     <Content Include="Views\Admin\HomeworksPending.cshtml" />
     <Content Include="Views\Shared\RequestsDetails.cshtml" />
+    <Content Include="Views\Home\Error.cshtml" />
     <None Include="Web.Debug.Config">
       <DependentUpon>Web.Config</DependentUpon>
     </None>

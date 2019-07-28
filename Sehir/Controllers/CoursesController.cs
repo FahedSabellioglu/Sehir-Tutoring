@@ -41,7 +41,7 @@ namespace Sehir.Controllers
 
             if (usrObject.transcript == null)
             {
-                ViewBag.Transcript = false;
+                ViewBag.Transcript = true;
             }
 
             List<CoursesOffer_Result> CoursesData = cx.CoursesOffer(usrObject.id).ToList();
@@ -73,8 +73,13 @@ namespace Sehir.Controllers
 
                 }
 
-                if (transcript != null)
+                if (usrObject.transcript==null)
                 {
+                    if(transcript == null)
+                    {
+                        TempData["shortMessage"] = "Please upload your transcript.";
+                        return RedirectToAction("CourseOfferPage", new { mail = User.Identity.Name });
+                    }
                     byte[] TranscriptImg = ChangeImgeToArray(transcript);
                     usrObject.transcript = TranscriptImg;
                 }
